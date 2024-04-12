@@ -1,0 +1,334 @@
+{%extends "base.html"%}
+
+{% load static %}
+
+{%block header%}
+<div class="d-flex justify-content-between">
+    <h1>
+      UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+    </h1>
+    <div class="logoUESC">
+      <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px;">
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg bg-light justify-content-center">
+  <div class="container-fluid">
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMainMenu">
+      <ul class="navbar-nav me-auto mb-0 mb-lg-0 justify-content-center">
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            A UESC
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/index.php?item=conteudo_historia.php">A História</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/index.php?item=conteudo_localizacao.php">Localização</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/regimento.pdf">Regimento</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/estatuto.pdf">Estatuto</a></li>
+            <li><a class="dropdown-item" href="https://www2.uesc.br/publicacoes/portarias">Portarias</a></li>
+            <li><a class="dropdown-item" href="https://www2.uesc.br/publicacoes/editais">Editais</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/publicacoes/">Conselhos Superiores</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/calendario-academico.php">Caléndario</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/galeria/">Galeria de Fotos</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Estrutura Organizacional
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="http://www.uesc.br/reitoria/">Reitoria</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/proreitoria/">Pró-Reitoria e Procuradoria</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/publicacoes/">Conselhos</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/assessorias/">Acessorias</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/departamentos/">Departamentos</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/colegiados/">Colegiados</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/comites_comissoes/">Comitês e Comissões</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/colecoes_cientificas/">Coleções Científicas</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Serviços
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="http://www.uesc.br/auditorios/">Auditorios</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/biblioteca/">Biblioteca</a></li>
+            <li><a class="dropdown-item" href="https://www.comprasnet.ba.gov.br/">Licitações</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/maxdemenezes/">Pav. Max de Menezes</a></li>
+            <li><a class="dropdown-item" href="https://www.prograd.uesc.br/PortalSagres/">Portal Acadêmico</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/proad/index.php?item=conteudo_gera_requerimento_academico.php">Protocolo Digital</a></li>
+            <li><a class="dropdown-item" href="https://www.portalseibahia.saeb.ba.gov.br/pagina-acesso-externo">Peticionamento Eletrônico do SEI</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Destaques
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="http://www.uesc.br/ascom/index.php?item=conteudo_entrevistas.php">Entrevistas</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/jornal/">Jornal UESC</a></li>
+            <li><a class="dropdown-item" href="https://www2.uesc.br/eventos">Eventos</a></li>
+            <li><a class="dropdown-item" href="https://www2.uesc.br/noticias/">Notícias</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://www.uesc.br/cursos/graduacao/">Graduação</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://www.uesc.br/cursos/pos_graduacao/">Pós-Graduação</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://proex.uesc.br/">Extensão</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Servidores
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="http://www.uesc.br/cadf/">Avaliação Funcional</a></li>
+            <li><a class="dropdown-item" href="https://comprasnet.ba.gov.br/">Comprasnet.Ba</a></li>
+            <li><a class="dropdown-item" href="https://rhbahia.ba.gov.br/">RH Bahia</a></li>
+            <li><a class="dropdown-item" href="https://seibahia.ba.gov.br/sip/login.php?sigla_orgao_sistema=GOVBA&sigla_sistema=SEI&infra_url=L3NlaS8=">Portal Sei Bahia</a></li>
+            <li><a class="dropdown-item" href="http://www.uesc.br/uescoop/">Uescoop</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://www.uesc.br/fale_conosco/">Fale Conosco</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link" href="http://www.uesc.br/centros/">Centros e Grupos de Pesquisa</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="http://www.uesc.br/arint/">Internacional</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="http://www.uesc.br/laboratorios/">Laboratorios</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="http://www.uesc.br/mapa/">Mapa da UESC</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="http://www.uesc.br/nucleos/">Núcleos</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="http://www.uesc.br/projetos/">Projetos</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="http://www.uesc.br/proad/index.php?item=conteudo_gera_requerimento_academico.php">Protocolo Digital</a>
+  </li>
+</ul>
+{%endblock header%}
+
+{%block menu%}
+<div class="card">
+  <div class="card-body">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">TV UESC</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">Radio UESC</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">PROCESSOS SELETIVOS</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">CONCURSOS E SELEÇÕES SERVIDOR</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">EAD</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">PROGRAD</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">PORTAL ACADÊMICO</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">BIBLIOTECA</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">PROEX</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">PROPP</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">PROAD</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">PROAPE</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">EDITORA EDITUS</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">PORTAL DE PERIÓDICOS ELETRÔNICOS</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">CEP-UESC</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">CPA-UESC</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">OUVIDORIA/SIC</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">BROTO</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-dark">NIP</button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  
+{%endblock menu%}
+
+
+
+{%block resultado%}
+<div class="card">
+    <div class="card-header">
+        <strong>Resultados</strong>
+    </div>
+
+    <div class="card-body">
+        <ul class="resultado-list">
+            {% for res in resultado %}
+            <li {% if forloop.counter > 5 %}class="hidden"{% endif %}>
+                <p>
+                    <strong>{{ res.nome }}</strong>
+                </p>
+                <p>
+                    <a href="{{ res.link }}">
+                        {{ res.titulo }}
+                    </a>
+                    - {{ res.data }}
+                </p>
+                <p>
+                  {{res.obs}}
+                </p>
+            </li>
+            {% empty %}
+            <li>
+                Não há Resultados Cadastrados
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-end">
+            <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+        </div>
+    </div>
+</div>
+{%endblock resultado%}
+
+
+{%block cursos%}
+<div class="card">
+    <div class="card-header">
+        <strong>Cursos e Eventos</strong> 
+    </div>
+
+    <div class="card-body">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reiciendis nesciunt quisquam expedita est quas numquam ipsa placeat cumque eos? Illo explicabo nam sunt nostrum et tempore reiciendis porro illum.</p>
+    </div>
+</div>
+{%endblock cursos%}
+
+{%block noticias%}
+<div class="card">
+    <div class="card-header">
+        <strong>Noticias</strong>
+    </div>
+
+    <div class="card-body">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reiciendis nesciunt quisquam expedita est quas numquam ipsa placeat cumque eos? Illo explicabo nam sunt nostrum et tempore reiciendis porro illum.</p>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-end">
+            <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+        </div>
+    </div>
+</div>
+{%endblock noticias%}
+
+{%block mural%}
+<div class="card">
+    <div class="card-header">
+      <strong>Mural</strong>
+    </div>
+
+    <div class="card-body">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reiciendis nesciunt quisquam expedita est quas numquam ipsa placeat cumque eos? Illo explicabo nam sunt nostrum et tempore reiciendis porro illum.</p>
+    </div>
+</div>
+{%endblock mural%}
+
+
+{%block editais%}
+<div class="card">
+    <div class="card-header">
+        <strong>Editais</strong>
+    </div>
+
+    <div class="card-body">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reiciendis nesciunt quisquam expedita est quas numquam ipsa placeat cumque eos? Illo explicabo nam sunt nostrum et tempore reiciendis porro illum.</p>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-end">
+            <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+        </div>
+    </div>
+</div>
+{%endblock editais%}
+
+
+
+
+{%block footer%}
+<div class="text-center">
+  <p>
+    Site Não Oficial desenvolvido por Gabriel dos Santos Sousa e Girleide Macario dos Santos
+  </p>
+  <p>
+    UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+  </p>
+  <p>
+    Campus Soane Nazaré de Andrade, Rodovia Jorge Amado, km 16, Bairro Salobrinho. 
+  </p>
+  <p>
+    CEP 45662-900. Ilhéus-Bahia 
+  </p>
+  <p>
+    <a href="http://www.uesc.br/nucleo-web/">Núcleo Web</a>
+  </p>
+</div>
+{%endblock footer%}
+
+
