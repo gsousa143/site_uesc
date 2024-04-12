@@ -1,5 +1,8 @@
 from django.contrib import admin
 
-from uesc_app.models import Resultado
+from uesc_app.models import *
 
-admin.site.register(Resultado)
+admin.site.register(Link)
+admin.site.register(Grupo)
+admin.site.register(Tipo)
+admin.site.register(Banner)
