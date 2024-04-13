@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <title>Document</title>
+
+</head>
+<style>
+    :root{
+      --bs-body-color: rgb(197, 197, 197);
+      --bs-body-color-rgb: rgb(197, 197, 197);
+    }
+
+</style>
+<body>
+
+  <header>
+    <div>
+      <div class="d-flex justify-content-between mb-4">
+    <h1>
+      UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+    </h1>
+    <div class="logoUESC">
+      <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px;">
+    </div>
+  </div>
+
+    </div>
+  </header>
+<div class="d-flex mb-4" style="background-color:rgb(0, 91, 128)">
+  <p>Abril</p>
+</div>
+<div class="card">
+  <div class="card-header">
+      <strong>Editais</strong>
+  </div>
+
+      <ul class="resultado-list mb-4">
+
+          {% for res in resultado %}
+          <li {% if forloop.counter > 5 %}class="hidden"{% endif %}>
+              <p>
+                  <strong>{{ res.nome }}</strong>
+              </p>
+              <p>
+                  <a href="{{ res.link }}">
+                      {{ res.titulo }}
+                  </a>
+                  - {{ res.data }}
+              </p>
+              <p>
+                {{res.obs}}
+              </p>
+          </li>
+          {% empty %}
+          <li>
+              Não há Resultados Cadastrados
+          </li>
+          {% endfor %}
+      </ul>
+</div>
+
+
+<div class="text-center">
+  <p>
+    Site Não Oficial desenvolvido por Gabriel dos Santos Sousa e Girleide Macario dos Santos
+  </p>
+  <p>
+    UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+  </p>
+  <p>
+    Campus Soane Nazaré de Andrade, Rodovia Jorge Amado, km 16, Bairro Salobrinho. 
+  </p>
+  <p>
+    CEP 45662-900. Ilhéus-Bahia 
+  </p>
+  <p>
+    <a href="http://www.uesc.br/nucleo-web/">Núcleo Web</a>
+  </p>
+</div>
+</body>
+</html>
