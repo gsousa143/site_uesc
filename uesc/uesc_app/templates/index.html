@@ -211,103 +211,201 @@
 
 
 {%block resultado%}
-<!--
-<div class="card">
-    <div class="card-header">
-        <strong>Resultados</strong>
-    </div>
 
-    <div class="card-body">
-        <ul class="resultado-list">
-            {% for res in resultado %}
-            <li {% if forloop.counter > 5 %}class="hidden"{% endif %}>
-                <p>
-                    <strong>{{ res.nome }}</strong>
-                </p>
-                <p>
-                    <a href="{{ res.link }}">
-                        {{ res.titulo }}
-                    </a>
-                    - {{ res.data }}
-                </p>
-                <p>
-                  {{res.obs}}
-                </p>
-            </li>
-            {% empty %}
-            <li>
-                Não há Resultados Cadastrados
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="card-footer">
-        <div class="d-flex justify-content-end">
-            <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-        </div>
-    </div>
+<div class="card">
+  <div class="card-header">
+      <strong>RESULTADOS</strong>
+  </div>
+
+  <div class="card-body">
+      {% for tipo, grupos in grupos_por_tipo.items %}
+          {% if tipo.tipo == "resultados" %}
+              {% if grupos %}
+                  {% for grupo in grupos %}
+                      <strong>{{ grupo.titulo }}</strong>
+                      <ul class="resultado-list">
+                          {% for link in grupo.link_set.all %}
+                              <li>
+                                  <a href="{{ link.endereco }}">
+                                      {{ link.nome }}
+                                  </a>
+                              </li>
+                          {% empty %}
+
+                          {% endfor %}
+                      </ul>
+                  {% endfor %}
+              {% endif %}
+          {% endif %}
+      {% empty %}
+
+      {% endfor %}
+  </div>
+  <div class="card-footer">
+      <div class="d-flex justify-content-end">
+          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+      </div>
+  </div>
 </div>
--->
+
 {%endblock resultado%}
 
 
 {%block cursos%}
 <div class="card">
-    <div class="card-header">
-        <strong>Cursos e Eventos</strong> 
-    </div>
+  <div class="card-header">
+      <strong>CURSOS E EVENTOS</strong>
+  </div>
 
-    <div class="card-body">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reiciendis nesciunt quisquam expedita est quas numquam ipsa placeat cumque eos? Illo explicabo nam sunt nostrum et tempore reiciendis porro illum.</p>
-    </div>
+  <div class="card-body">
+      {% for tipo, grupos in grupos_por_tipo.items %}
+          {% if tipo.tipo == "cursos" %}
+              {% if grupos %}
+                  {% for grupo in grupos %}
+                      <strong>{{ grupo.titulo }}</strong>
+                      <ul class="resultado-list">
+                          {% for link in grupo.link_set.all %}
+                              <li>
+                                  <a href="{{ link.endereco }}">
+                                      {{ link.nome }}
+                                  </a>
+                              </li>
+                          {% empty %}
+
+                          {% endfor %}
+                      </ul>
+                  {% endfor %}
+              {% endif %}
+          {% endif %}
+      {% empty %}
+
+      {% endfor %}
+  </div>
+  <div class="card-footer">
+      <div class="d-flex justify-content-end">
+          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+      </div>
+  </div>
 </div>
+
 {%endblock cursos%}
 
 {%block noticias%}
 <div class="card">
-    <div class="card-header">
-        <strong>Noticias</strong>
-    </div>
+  <div class="card-header">
+      <strong>NOTÍCIAS</strong>
+  </div>
 
-    <div class="card-body">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reiciendis nesciunt quisquam expedita est quas numquam ipsa placeat cumque eos? Illo explicabo nam sunt nostrum et tempore reiciendis porro illum.</p>
-    </div>
-    <div class="card-footer">
-        <div class="d-flex justify-content-end">
-            <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-        </div>
-    </div>
+  <div class="card-body">
+      {% for tipo, grupos in grupos_por_tipo.items %}
+          {% if tipo.tipo == "noticias" %}
+              {% if grupos %}
+                  {% for grupo in grupos %}
+                      <strong>{{ grupo.titulo }}</strong>
+                      <ul class="resultado-list">
+                          {% for link in grupo.link_set.all %}
+                              <li>
+                                  <a href="{{ link.endereco }}">
+                                      {{ link.nome }}
+                                  </a>
+                              </li>
+                          {% empty %}
+
+                          {% endfor %}
+                      </ul>
+                  {% endfor %}
+              {% endif %}
+          {% endif %}
+      {% empty %}
+
+      {% endfor %}
+  </div>
+  <div class="card-footer">
+      <div class="d-flex justify-content-end">
+          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+      </div>
+  </div>
 </div>
+
 {%endblock noticias%}
 
 {%block mural%}
 <div class="card">
-    <div class="card-header">
-      <strong>Mural</strong>
-    </div>
+  <div class="card-header">
+      <strong>MURAL</strong>
+  </div>
 
-    <div class="card-body">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reiciendis nesciunt quisquam expedita est quas numquam ipsa placeat cumque eos? Illo explicabo nam sunt nostrum et tempore reiciendis porro illum.</p>
-    </div>
+  <div class="card-body">
+      {% for tipo, grupos in grupos_por_tipo.items %}
+          {% if tipo.tipo == "murais" %}
+              {% if grupos %}
+                  {% for grupo in grupos %}
+                      <strong>{{ grupo.titulo }}</strong>
+                      <ul class="resultado-list">
+                          {% for link in grupo.link_set.all %}
+                              <li>
+                                  <a href="{{ link.endereco }}">
+                                      {{ link.nome }}
+                                  </a>
+                              </li>
+                          {% empty %}
+
+                          {% endfor %}
+                      </ul>
+                  {% endfor %}
+              {% endif %}
+          {% endif %}
+      {% empty %}
+
+      {% endfor %}
+  </div>
+  <div class="card-footer">
+      <div class="d-flex justify-content-end">
+          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+      </div>
+  </div>
 </div>
+
 {%endblock mural%}
 
 
 {%block editais%}
 <div class="card">
-    <div class="card-header">
-        <strong>Editais</strong>
-    </div>
+  <div class="card-header">
+      <strong>EDITAIS</strong>
+  </div>
 
-    <div class="card-body">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reiciendis nesciunt quisquam expedita est quas numquam ipsa placeat cumque eos? Illo explicabo nam sunt nostrum et tempore reiciendis porro illum.</p>
-    </div>
-    <div class="card-footer">
-        <div class="d-flex justify-content-end">
-            <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-        </div>
-    </div>
+  <div class="card-body">
+      {% for tipo, grupos in grupos_por_tipo.items %}
+          {% if tipo.tipo == "editais" %}
+              {% if grupos %}
+                  {% for grupo in grupos %}
+                      <strong>{{ grupo.titulo }}</strong>
+                      <ul class="resultado-list">
+                          {% for link in grupo.link_set.all %}
+                              <li>
+                                  <a href="{{ link.endereco }}">
+                                      {{ link.nome }}
+                                  </a>
+                              </li>
+                          {% empty %}
+
+                          {% endfor %}
+                      </ul>
+                  {% endfor %}
+              {% endif %}
+          {% endif %}
+      {% empty %}
+
+      {% endfor %}
+  </div>
+  <div class="card-footer">
+      <div class="d-flex justify-content-end">
+          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+      </div>
+  </div>
 </div>
+
 {%endblock editais%}
 
 

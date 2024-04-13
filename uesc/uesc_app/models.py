@@ -10,6 +10,7 @@ class Tipo(models.Model):
 class Grupo(models.Model):
     tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=100)
+    data = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.titulo
