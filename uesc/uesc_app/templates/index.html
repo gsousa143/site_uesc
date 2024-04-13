@@ -143,7 +143,7 @@
 {%block menu%}
 <div class="card">
   <div class="card-body">
-    <ul class="nav flex-column">
+    <ul class="nav flex-column justify-content-between align-content-around">
       <li class="nav-item">
         <button class="nav-link btn btn-dark">TV UESC</button>
       </li>
@@ -210,7 +210,7 @@
 
 
 
-{%block resultado%}
+{%block bory%}
 
 <div class="card">
   <div class="card-header">
@@ -241,17 +241,9 @@
 
       {% endfor %}
   </div>
-  <div class="card-footer">
-      <div class="d-flex justify-content-end">
-          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-      </div>
-  </div>
 </div>
 
-{%endblock resultado%}
 
-
-{%block cursos%}
 <div class="card">
   <div class="card-header">
       <strong>CURSOS E EVENTOS</strong>
@@ -281,16 +273,9 @@
 
       {% endfor %}
   </div>
-  <div class="card-footer">
-      <div class="d-flex justify-content-end">
-          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-      </div>
-  </div>
 </div>
 
-{%endblock cursos%}
 
-{%block noticias%}
 <div class="card">
   <div class="card-header">
       <strong>NOTÍCIAS</strong>
@@ -322,14 +307,14 @@
   </div>
   <div class="card-footer">
       <div class="d-flex justify-content-end">
-          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+        <a href="{% url 'noticias' %}">
+          <button id="show-more-btn" class="btn btn-primary" >Mostrar Mais</button>
+        </a>
       </div>
   </div>
 </div>
 
-{%endblock noticias%}
 
-{%block mural%}
 <div class="card">
   <div class="card-header">
       <strong>MURAL</strong>
@@ -359,17 +344,8 @@
 
       {% endfor %}
   </div>
-  <div class="card-footer">
-      <div class="d-flex justify-content-end">
-          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-      </div>
-  </div>
 </div>
 
-{%endblock mural%}
-
-
-{%block editais%}
 <div class="card">
   <div class="card-header">
       <strong>EDITAIS</strong>
@@ -401,12 +377,14 @@
   </div>
   <div class="card-footer">
       <div class="d-flex justify-content-end">
-          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+        <a href="{% url 'editais' %}">
+          <button id="show-more-btn" class="btn btn-primary" >Mostrar Mais</button>
+        </a>
       </div>
   </div>
 </div>
 
-{%endblock editais%}
+{%endblock bory%}
 
 
 
@@ -430,5 +408,7 @@
   </p>
 </div>
 {%endblock footer%}
+
+
 
 
