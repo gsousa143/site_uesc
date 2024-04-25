@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Noticias</title>
 </head>
 <body>
-    <h1>teste notícias</h1>
+    {% for grupo in noticias %}
+    <h2>{{ grupo.titulo }}</h2>
+    <p>Data: {{ grupo.data }}</p>
+    <ul>
+        {% for link in grupo.link_set.all %}
+            <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+    
 </body>
 </html>
