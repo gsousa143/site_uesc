@@ -13,16 +13,14 @@ def home(request):
     return render(request, "index.html", contexto)
 
 def noticias(request):
-    tipoNoticias = Tipo.objects.get(
-        tipo="noticias")
+    tipoNoticias = Tipo.objects.get(tipo="NOTICIAS")
     noticias = Grupo.objects.filter(tipo=tipoNoticias).prefetch_related('link_set').all()
 
     contexto = {'noticias': noticias}
     return render(request, "noticias.html", contexto)
 
 def editais(request):
-    tipoEditais = Tipo.objects.get(
-        tipo="editais")
+    tipoEditais = Tipo.objects.get(tipo="EDITAIS")
     editais = Grupo.objects.filter(tipo=tipoEditais).prefetch_related('link_set').all()
     contexto = {'editais': editais}
     return render(request, "editais.html", contexto)

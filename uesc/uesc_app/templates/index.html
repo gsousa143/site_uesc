@@ -212,33 +212,49 @@
 
 {% for tipo, grupos in grupos_por_tipo.items %}
 
+{% if tipo.tipo != "MENU" %}
+
 <div class="card">
   <div class="card-header">
       <strong>{{tipo.tipo}}</strong>
   </div>
 
   <div class="card-body">
-  {% for grupo in grupos %}
+    {% for grupo in grupos %}
     <strong>{{ grupo.titulo }}</strong>
     <ul class="resultado-list">
-      {% for link in grupo.link_set.all %}
+        {% for link in grupo.link_set.all %}
       <li>
         <a href="{{ link.endereco }}">
-          {{ link.nome }}
+            {{ link.nome }}
         </a>
       </li>
-        {% endfor %}
+          {% endfor %}
     </ul>
     {% endfor %}
   </div>
+  
   <div class="card-footer">
+    {% if tipo.tipo == "EDITAIS" or tipo.tipo == "NOTICIAS" %}
       <div class="d-flex justify-content-end">
+        {% if tipo.tipo == 'EDITAIS' %}
         <a href="{% url 'editais' %}">
-          <button id="show-more-btn" class="btn btn-primary" >Mostrar Mais</button>
+          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
         </a>
+        {% else %}
+        <a href="{% url 'noticias' %}">
+          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+        </a>
+        {% endif %}
+
       </div>
+      {% endif %}
   </div>
+
 </div>
+{% endif %}
+
+
 {% endfor %}
 
 {%endblock cards%}
