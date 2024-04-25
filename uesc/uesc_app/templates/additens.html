@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+{% load static %}
+
+{%block main%}
+
+<h2>Formulário para Adicionar Tipo</h2>
+<form action="." method="post">
+    {% csrf_token %}
+    {{ form_tipo.as_p }}
+    <button type="submit">Salvar Tipo</button>
+</form>
+
+
+<h2>Formulário para Adicionar Grupo</h2>
+<form action="." method="post">
+    {% csrf_token %}
+    {{ form_grupo.as_p }}
+    <button type="submit">Salvar Grupo</button>
+</form>
+
+<h2>Formulário para Adicionar Link</h2>
+<form action="." method="post">
+    {% csrf_token %}
+    {{ form_link.as_p }}
+    <button type="submit">Salvar Link</button>
+</form>
+
+{%endblock main%}

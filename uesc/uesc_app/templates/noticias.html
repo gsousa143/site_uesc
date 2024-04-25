@@ -1,20 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noticias</title>
-</head>
-<body>
-    {% for grupo in noticias %}
-    <h2>{{ grupo.titulo }}</h2>
-    <p>Data: {{ grupo.data }}</p>
-    <ul>
-        {% for link in grupo.link_set.all %}
-            <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
-        {% endfor %}
-    </ul>
+
+
+{%extends "base.html"%}
+{% load static %}
+
+{%block titulo%}
+NOTICIAS
+{%endblock titulo%}
+
+{%block header%}
+
+{%endblock header%}
+
+
+
+{%block main%}
+{% for grupo in noticias %}
+<h2>{{ grupo.titulo }}</h2>
+<p>Data: {{ grupo.data }}</p>
+<ul>
+    {% for link in grupo.link_set.all %}
+        <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
+    {% endfor %}
+</ul>
 {% endfor %}
-    
-</body>
-</html>
+{%endblock main%}
+
+{%block footer%}
+
+{%endblock footer%}

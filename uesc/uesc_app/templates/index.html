@@ -1,6 +1,10 @@
 {%extends "base.html"%}
-
 {% load static %}
+
+{%block titulo%}
+UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+{%endblock titulo%}
+
 
 {%block header%}
 <div class="d-flex justify-content-between">
@@ -137,127 +141,90 @@
   <li class="nav-item">
     <a class="nav-link" href="http://www.uesc.br/proad/index.php?item=conteudo_gera_requerimento_academico.php">Protocolo Digital</a>
   </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'additens' %}">Adicionar itens</a>
+  </li>
 </ul>
 {%endblock header%}
 
-{%block menu%}
-<div class="card">
-  <div class="card-body">
-    <ul class="nav flex-column justify-content-between align-content-around">
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">TV UESC</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">Radio UESC</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">PROCESSOS SELETIVOS</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">CONCURSOS E SELEÇÕES SERVIDOR</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">EAD</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">PROGRAD</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">PORTAL ACADÊMICO</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">BIBLIOTECA</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">PROEX</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">PROPP</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">PROAD</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">PROAPE</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">EDITORA EDITUS</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">PORTAL DE PERIÓDICOS ELETRÔNICOS</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">CEP-UESC</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">CPA-UESC</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">OUVIDORIA/SIC</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">BROTO</button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link btn btn-dark">NIP</button>
-      </li>
-    </ul>
-  </div>
-</div>
-{%endblock menu%}
 
+{%block main%}
+<div class="container-fluid">
+<div class="row">
 
+  <div class="col-lg-10 col-12">
+  {% for tipo, grupos in grupos_por_tipo.items %}
+  {% if tipo.tipo != "MENU" %}
 
-{%block cards%}
-
-{% for tipo, grupos in grupos_por_tipo.items %}
-
-{% if tipo.tipo != "MENU" %}
-
-<div class="card">
-  <div class="card-header">
+    <div class="card">
+      <div class="card-header">
       <strong>{{tipo.tipo}}</strong>
-  </div>
+      </div>
 
-  <div class="card-body">
-    {% for grupo in grupos %}
-    <strong>{{ grupo.titulo }}</strong>
-    <ul class="resultado-list">
-        {% for link in grupo.link_set.all %}
+      <div class="card-body">
+      {% for grupo in grupos %}
+      <strong>{{ grupo.titulo }}</strong>
+      <ul class="resultado-list">
+      {% for link in grupo.link_set.all %}
       <li>
-        <a href="{{ link.endereco }}">
-            {{ link.nome }}
-        </a>
+      <a href="{{ link.endereco }}">
+      {{ link.nome }}
+      </a>
       </li>
-          {% endfor %}
-    </ul>
-    {% endfor %}
-  </div>
-  
-  <div class="card-footer">
-    {% if tipo.tipo == "EDITAIS" or tipo.tipo == "NOTICIAS" %}
-      <div class="d-flex justify-content-end">
-        {% if tipo.tipo == 'EDITAIS' %}
-        <a href="{% url 'editais' %}">
-          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-        </a>
-        {% else %}
-        <a href="{% url 'noticias' %}">
-          <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-        </a>
-        {% endif %}
+      {% endfor %}
+      </ul>
+      {% endfor %}
+      </div>
 
+      <div class="card-footer">
+      {% if tipo.tipo == "EDITAIS" or tipo.tipo == "NOTICIAS" %}
+      <div class="d-flex justify-content-end">
+      {% if tipo.tipo == 'EDITAIS' %}
+      <a href="{% url 'editais' %}">
+      <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+      </a>
+      {% else %}
+      <a href="{% url 'noticias' %}">
+      <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
+      </a>
+      {% endif %}
       </div>
       {% endif %}
+      </div>
+
+    </div>
+  {% endif %}
+  {% endfor %}
   </div>
 
+
+  <div class="col-lg-2 col-12">
+
+    <div class="card">
+      <div class="card-body">
+        <ul class="nav flex-column justify-content-between align-content-around">
+        {% for tipo, grupos in grupos_por_tipo.items %}
+        {%if tipo.tipo == "MENU" %}
+        {% for grupo in grupos %}
+        {%if grupo.titulo == "BANNER"%}
+        {% for link in grupo.link_set.all %}
+          <li class="nav-item">
+            <a href="{{ link.endereco }}" class="nav-link btn btn-dark">{{ link.nome }}</a>
+          </li>
+        {% endfor %}
+        {%endif%}
+        {% endfor %}
+        {%endif%}
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
 </div>
-{% endif %}
-
-
-{% endfor %}
-
-{%endblock cards%}
+</div>
+{%endblock main%}
 
 
 
