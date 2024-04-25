@@ -1,11 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0WTzRBhdj70p5FTclzOe5xvCY8X/s1QaEvjvzFCqfcuWdO9eBIKe2NuTkofn5rN" crossorigin="anonymous">
+    <title>Noticias</title>
 </head>
+  
+<style>
+    :root{
+      --bs-body-color: rgb(197, 197, 197);
+      --bs-body-color-rgb: rgb(197, 197, 197);
+    }
+    
+    body {
+      min-height: calc(100vh - 100px);
+      position: relative;
+    }
+  
+  </style>
 <body>
-    <h1>teste notícias</h1>
+    <header>
+        <div>
+          <div class="d-flex justify-content-between mb-4">
+            <h1>
+              UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+            </h1>
+          </div>
+          <div class="logoUESC">
+            <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px;">
+          </div>
+        </div>
+      </header>
+    {% for grupo in noticias %}
+        <div class="d-flex mb-4" style="background-color:rgb(181, 217, 231)">
+            <h2>{{ grupo.titulo }}</h2>
+            <p>Data: {{ grupo.data }}</p>
+            <ul>
+                {% for link in grupo.link_set.all %}
+                    <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
 </body>
 </html>

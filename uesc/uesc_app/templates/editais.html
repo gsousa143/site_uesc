@@ -1,11 +1,79 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0WTzRBhdj70p5FTclzOe5xvCY8X/s1QaEvjvzFCqfcuWdO9eBIKe2NuTkofn5rN" crossorigin="anonymous">
+  <title>Editais</title>
 </head>
+  
+<style>
+  :root{
+    --bs-body-color: rgb(197, 197, 197);
+    --bs-body-color-rgb: rgb(197, 197, 197);
+  }
+  
+  body {
+    min-height: calc(100vh - 100px);
+    position: relative;
+  }
+
+</style>
+
 <body>
-    
+<header>
+  <div>
+    <div class="d-flex justify-content-between mb-4">
+      <h1>
+        UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+      </h1>
+    </div>
+    <div class="logoUESC">
+      <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px;">
+    </div>
+  </div>
+</header>
+
+<div class="d-flex mb-4" style="background-color:rgb(0, 91, 128)">
+  <p>Abril</p>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <strong>Editais</strong>
+  </div>
+      {% for grupo in editais %}
+    <h2>{{ grupo.titulo }}</h2>
+    <p>Data: {{ grupo.data }}</p>
+    <ul>
+        {% for link in grupo.link_set.all %}
+            <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+</div>
+
+{% block footer %}
+<footer class="fixed-bottom bg-light text-center">
+  <div class="container">
+    <p>
+      Site Não Oficial desenvolvido por Gabriel dos Santos Sousa e Girleide Macario dos Santos
+    </p>
+    <p>
+      UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+    </p>
+    <p>
+      Campus Soane Nazaré de Andrade, Rodovia Jorge Amado, km 16, Bairro Salobrinho.
+    </p>
+    <p>
+      CEP 45662-900. Ilhéus-Bahia
+    </p>
+    <p>
+      <a href="http://www.uesc.br/nucleo-web/">Núcleo Web</a>
+    </p>
+  </div>
+</footer>
+{% endblock footer %}
 </body>
 </html>
