@@ -17,14 +17,10 @@ class Grupo(models.Model):
     
 
 class Link(models.Model):
-    nome = models.CharField(max_length=100)
+    nome = models.TextField(null=True)
     endereco = models.CharField(max_length=200)
     grupo = models.ForeignKey(Grupo,on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return self.nome
     
-
-class Banner(models.Model):
-    endereco = models.CharField(max_length=200)
-    imagem = models.TextField(null=True)
