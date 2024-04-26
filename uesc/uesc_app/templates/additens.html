@@ -2,27 +2,49 @@
 {% load static %}
 
 {%block main%}
+<div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Adicionar Tipo</h2>
+        </div>
+        <div class="card-body">
+            <form action="." method="post" class="form-group">
+                {% csrf_token %}
+                {{ form_tipo.as_p }}
+                <button class="btn btn-primary" type="submit">Salvar Tipo</button>
+            </form>
+        </div>
+    </div>
 
-<h2>Formulário para Adicionar Tipo</h2>
-<form action="." method="post">
-    {% csrf_token %}
-    {{ form_tipo.as_p }}
-    <button type="submit">Salvar Tipo</button>
-</form>
+    <div class="card">
+        <div class="card-header">
+            <h2>Adicionar Grupo</h2>
+        </div>
+        <div class="card-body">
+            <form action="." method="post" class="form-group">
+                {% csrf_token %}
+                {{ form_grupo.as_p }}
+                <button class="btn btn-primary" type="submit">Salvar Grupo</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Adicionar Link</h2>
+        </div>
+        <div class="card-body">
+            <form action="." method="post" class="form-group">
+                {% csrf_token %}
+                {{ form_link.as_p }}
+                <button class="btn btn-primary" type="submit">Salvar Link</button>
+            </form>
+        </div>
+    </div>
 
 
-<h2>Formulário para Adicionar Grupo</h2>
-<form action="." method="post">
-    {% csrf_token %}
-    {{ form_grupo.as_p }}
-    <button type="submit">Salvar Grupo</button>
-</form>
 
-<h2>Formulário para Adicionar Link</h2>
-<form action="." method="post">
-    {% csrf_token %}
-    {{ form_link.as_p }}
-    <button type="submit">Salvar Link</button>
-</form>
 
+
+</div>
 {%endblock main%}
