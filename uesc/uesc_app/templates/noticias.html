@@ -34,7 +34,7 @@
     </header>
     {%endblock header%}
     
-      {% for ano, meses_em_ano in noticias_por_ano.items %}
+    {% for ano, meses_em_ano in noticias_por_ano.items %}
       <div class="ano" style="background-color: rgb(230, 248, 255); border: 2px solid rgb(230, 248, 255); border-radius: 10px;">
         <div class="d-flex align-items-center text-white" style="background-color: rgb(2, 46, 63);">
             <h2>{{ ano }}
@@ -57,6 +57,6 @@
               </div>
           {% endfor %}
       </div>
-  {% endfor %} 
+    {% endfor %} 
 </body>
 </html>

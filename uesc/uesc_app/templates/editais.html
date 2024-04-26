@@ -34,25 +34,36 @@
     </div>
   </div>
 </header>
-
-<div class="d-flex mb-4" style="background-color:rgb(0, 91, 128)">
-  <p>Abril</p>
+<div class="card-header">
+  <strong>Editais</strong>
 </div>
-
-<div class="card">
-  <div class="card-header">
-    <strong>Editais</strong>
-  </div>
-      {% for grupo in editais %}
-    <h2>{{ grupo.titulo }}</h2>
-    <p>Data: {{ grupo.data }}</p>
-    <ul>
-        {% for link in grupo.link_set.all %}
-            <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
-        {% endfor %}
-    </ul>
+{% for ano, meses_em_ano in editais_por_ano.items %}
+<div class="ano" style="background-color: rgb(230, 248, 255); border: 2px solid rgb(230, 248, 255); border-radius: 10px;">
+    <div class="d-flex justify-content-center align-items-center mb-4 text-white" style="background-color: rgb(2, 46, 63);">
+        <h2>{{ ano }}</h2>
+    </div>
+    {% for mes, editais_mes in meses_em_ano.items %}
+    <div class="mes">
+        <div class="d-flex justify-content-center align-items-center mb-4" style="background-color: rgb(33, 90, 112); height: 50px;">
+            <h3>{{ mes }}</h3>
+        </div>
+        <div class="card">
+            {% for edital in editais_mes %}
+            <div class="card-body">
+                <h2>{{ edital.titulo }}</h2>
+                <p>Data: {{ edital.data|date:"d/m/Y" }}</p>
+                <ul>
+                    {% for link in edital.link_set.all %}
+                    <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endfor %}
-</div>
 
 {% block footer %}
 <footer class="fixed-bottom bg-light text-center">

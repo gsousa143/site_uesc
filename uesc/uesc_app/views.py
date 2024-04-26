@@ -30,9 +30,20 @@ def noticias(request):
     return render(request, "noticias.html", contexto)
 
 def editais(request):
-    tipoEditais = Tipo.objects.get(
-        tipo="editais")
-    editais = Grupo.objects.filter(tipo=tipoEditais).prefetch_related('link_set').all()
-    contexto = {'editais': editais}
+    tipo_editais = Tipo.objects.get(tipo="editais")
+    editais = Grupo.objects.filter(tipo=tipo_editais).prefetch_related('link_set').all()
+
+    editais_por_ano = {}
+    for edital in editais:
+        ano = edital.data.year
+        mes = edital.data.strftime("%B")
+        if ano not in editais_por_ano:
+            editais_por_ano[ano] = {}
+        if mes not in editais_por_ano[ano]:
+            editais_por_ano[ano][mes] = []
+        editais_por_ano[ano][mes].append(edital)
+
+    contexto = {'editais_por_ano': editais_por_ano}
     return render(request, "editais.html", contexto)
+
 
