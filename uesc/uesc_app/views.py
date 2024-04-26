@@ -39,6 +39,9 @@ def additens(request):
     if request.method=="POST":
         pass
 
+    contexto = {"link_form":link_form,"grupo_form":grupo_form,"tipo_form":tipo_form}
+    return render(request,"additens.html", contexto)
+
 
 
 
