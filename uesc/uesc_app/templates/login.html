@@ -1,0 +1,11 @@
+{%extends "base.html"%}
+
+
+{%block main%}
+<from method="post" actiopn=".">
+    {% csrf_token %}
+    {{form_login.username}}
+    {{form_login.password}}
+    <button type="submit" class="btn btn-primary" class="px-1 py-2">Login</button>
+</from>
+{%endblock main%}

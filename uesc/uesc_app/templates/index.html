@@ -151,13 +151,13 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
 
 {%block main%}
 <div class="container-fluid">
-<div class="row">
+<div class="d-flex row">
 
-  <div class="col-lg-10 col-12">
+  <div class="d-flex flex-column col-lg-10 col-12">
   {% for tipo, grupos in grupos_por_tipo.items %}
   {% if tipo.tipo != "MENU" %}
 
-    <div class="card">
+    <div class="card flex-fill">
       <div class="card-header">
       <strong>{{tipo.tipo}}</strong>
       </div>
@@ -176,9 +176,9 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
       </ul>
       {% endfor %}
       </div>
-
-      <div class="card-footer">
       {% if tipo.tipo == "EDITAIS" or tipo.tipo == "NOTICIAS" %}
+      <div class="card-footer">
+      
       <div class="d-flex justify-content-end">
       {% if tipo.tipo == 'EDITAIS' %}
       <a href="{% url 'editais' %}">
@@ -190,8 +190,9 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
       </a>
       {% endif %}
       </div>
-      {% endif %}
+      
       </div>
+      {% endif %}
 
     </div>
   {% endif %}
@@ -201,8 +202,8 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
 
   <div class="col-lg-2 col-12">
 
-    <div class="card">
-      <div class="card-body">
+    <div class="card d-flex">
+      <div class="card-body flex-grow">
         <ul class="nav flex-column justify-content-between align-content-around">
         {% for tipo, grupos in grupos_por_tipo.items %}
         {%if tipo.tipo == "MENU" %}

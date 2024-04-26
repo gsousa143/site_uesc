@@ -59,3 +59,11 @@ def additens(request):
     return render(request, 'additens.html', contexto)
 
 
+
+def login(request):
+    form_login = LoginForm()
+    contexto = {"form_login": form_login}
+    return render(request,"login.html",contexto)
+
+
+
