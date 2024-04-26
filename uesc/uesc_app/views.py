@@ -4,7 +4,7 @@ from .forms import *
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
-
+from django.contrib.auth.hashers import make_password
 def home(request):
     tipos = Tipo.objects.all()
     grupos_por_tipo = {}
@@ -61,11 +61,21 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect("home")
+    return HttpResponseRedirect(reverse("home"))
 
 
 def cadastro(request):
+    if request.method=="POST":
+        form_cadastro = cadastroForm(request.POST)
+        if form_cadastro.is_valid():
+            if request.POST.get("password")!=request.POST.get("confirmacao"):
+                form_cadastro.add_error("password","As senhas devem ser iguais")
+            else:
+                form_cadastro = form_cadastro.save(commit=False)
+                form_cadastro.password = make_password(form_cadastro.password)
+                form_cadastro.save()
+                return HttpResponseRedirect(reverse("home"))
+
     form_cadastro = cadastroForm()
     contexto = {"form_cadastro":form_cadastro}
     return render(request,"cadastro.html",contexto)
-
