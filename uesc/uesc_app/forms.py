@@ -13,9 +13,9 @@ class LinkForm (forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['nome'].widget = forms.TextInput()
         self.fields['nome'].widget.attrs.update(
-            {'placeholder':"Titulo do Link", 'class': 'form-control'})
+            {'placeholder':"Titulo do Link", 'class': 'form-control my-2 p-2'})
         self.fields['endereco'].widget.attrs.update(
-            {'placeholder':"Endereço do Link", 'class': 'form-control'})
+            {'placeholder':"Endereço do Link", 'class': 'form-control my-2 p-2'})
         self.fields['grupo'].widget.attrs.update(
             {'class': 'form-control'})
 
@@ -27,7 +27,7 @@ class GrupoForm (forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['titulo'].widget.attrs.update(
-            {'placeholder':"Titulo do Grupo", 'class': 'form-control'})
+            {'placeholder':"Titulo do Grupo", 'class': 'form-control my-2 p-2'})
         self.fields['tipo'].widget.attrs.update(
             {'class': 'form-control'})
 
@@ -40,7 +40,7 @@ class TipoForm (forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['tipo'].widget.attrs.update(
-            {'placeholder':"Titulo do Tipo", 'class': 'form-control'})
+            {'placeholder':"Titulo do Tipo", 'class': 'form-control my-2 p-2'})
 
 
 
@@ -52,6 +52,6 @@ class LoginForm (forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
-            {'placeholder':"Nome de Usuario", 'class': 'form-control'})
+            {'placeholder':"Nome de Usuario", 'class': 'form-control my-2 p-2'})
         self.fields['password'].widget.attrs.update(
-            {'placeholder':"Senha", 'class': 'form-control'})
+            {'placeholder':"Senha", 'class': 'form-control my-2 p-2'})

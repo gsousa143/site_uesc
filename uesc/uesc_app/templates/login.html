@@ -1,11 +1,22 @@
 {%extends "base.html"%}
-
+{%block titulo%}
+Login
+{%endblock titulo%}
 
 {%block main%}
-<from method="post" actiopn=".">
-    {% csrf_token %}
-    {{form_login.username}}
-    {{form_login.password}}
-    <button type="submit" class="btn btn-primary" class="px-1 py-2">Login</button>
-</from>
+
+<div class="card">
+    <div class="card-header text-center">
+        <h2>Login</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" actiopn="{% url 'login' %}" class="d-flex flex-column align-content-around m-2 gap-2">
+            {% csrf_token %}
+            {{form_login.username}}
+            {{form_login.password}}
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>
+
 {%endblock main%}

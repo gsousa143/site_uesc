@@ -153,7 +153,7 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
 <div class="container-fluid">
 <div class="d-flex row">
 
-  <div class="d-flex flex-column col-lg-10 col-12">
+  <div class="d-flex flex-wrap gap-3 col-lg-10 col-12">
   {% for tipo, grupos in grupos_por_tipo.items %}
   {% if tipo.tipo != "MENU" %}
 
@@ -204,7 +204,7 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
 
     <div class="card d-flex">
       <div class="card-body flex-grow">
-        <ul class="nav flex-column justify-content-between align-content-around">
+        <ul class="nav d-flex flex-column justify-content-between align-content-around">
         {% for tipo, grupos in grupos_por_tipo.items %}
         {%if tipo.tipo == "MENU" %}
         {% for grupo in grupos %}
@@ -234,17 +234,13 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
 <div class="text-center">
   <p>
     Site Não Oficial desenvolvido por Gabriel dos Santos Sousa e Girleide Macario dos Santos
-  </p>
-  <p>
+
     UNIVERSIDADE ESTADUAL DE SANTA CRUZ
-  </p>
-  <p>
+
     Campus Soane Nazaré de Andrade, Rodovia Jorge Amado, km 16, Bairro Salobrinho. 
-  </p>
-  <p>
+
     CEP 45662-900. Ilhéus-Bahia 
-  </p>
-  <p>
+
     <a href="http://www.uesc.br/nucleo-web/">Núcleo Web</a>
   </p>
 </div>
