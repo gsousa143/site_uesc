@@ -21,28 +21,42 @@
   
   </style>
 <body>
+    {%block header%}
     <header>
-        <div>
-          <div class="d-flex justify-content-between mb-4">
+        <div class="d-flex justify-content-between">
             <h1>
               UNIVERSIDADE ESTADUAL DE SANTA CRUZ
             </h1>
-          </div>
-          <div class="logoUESC">
-            <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px;">
-          </div>
+            <div class="logoUESC">
+              <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px;">
+            </div>
         </div>
-      </header>
-    {% for grupo in noticias %}
-        <div class="d-flex mb-4" style="background-color:rgb(181, 217, 231)">
-            <h2>{{ grupo.titulo }}</h2>
-            <p>Data: {{ grupo.data }}</p>
-            <ul>
-                {% for link in grupo.link_set.all %}
-                    <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
-                {% endfor %}
-            </ul>
+    </header>
+    {%endblock header%}
+    
+      {% for ano, meses_em_ano in noticias_por_ano.items %}
+      <div class="ano" style="background-color: rgb(230, 248, 255); border: 2px solid rgb(230, 248, 255); border-radius: 10px;">
+        <div class="d-flex align-items-center text-white" style="background-color: rgb(2, 46, 63);">
+            <h2>{{ ano }}
         </div>
-    {% endfor %}
+        
+          {% for mes, noticias_mes in meses_em_ano.items %}
+              <div class="mes">
+                <div class="d-flex justify-content-center align-items-center mb-4" style="background-color: rgb(33, 90, 112); height: 50px;"><h3>{{ mes }}</h3> </div>
+                  {% for grupo in noticias_mes %}
+                      <div class="d-flex mb-4" style="background-color: rgb(181, 217, 231)">
+                          <h2>{{ grupo.titulo }}</h2>
+                          <p>Data: {{ grupo.data|date:"d/m/Y" }}</p>
+                          <ul>
+                              {% for link in grupo.link_set.all %}
+                                  <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+                  {% endfor %}
+              </div>
+          {% endfor %}
+      </div>
+  {% endfor %} 
 </body>
 </html>

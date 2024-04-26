@@ -13,11 +13,20 @@ def home(request):
     return render(request, "index.html", contexto)
 
 def noticias(request):
-    tipoNoticias = Tipo.objects.get(
-        tipo="noticias")
-    noticias = Grupo.objects.filter(tipo=tipoNoticias).prefetch_related('link_set').all()
+    tipo_noticias = Tipo.objects.get(tipo="noticias")
+    noticias = Grupo.objects.filter(tipo=tipo_noticias).prefetch_related('link_set').all()
 
-    contexto = {'noticias': noticias}
+    noticias_por_ano = {}
+    for noticia in noticias:
+        ano = noticia.data.year
+        mes = noticia.data.strftime("%B")
+        if ano not in noticias_por_ano:
+            noticias_por_ano[ano] = {}
+        if mes not in noticias_por_ano[ano]:
+            noticias_por_ano[ano][mes] = []
+        noticias_por_ano[ano][mes].append(noticia)
+
+    contexto = {'noticias_por_ano': noticias_por_ano}
     return render(request, "noticias.html", contexto)
 
 def editais(request):
