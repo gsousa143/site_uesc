@@ -18,17 +18,18 @@
       min-height: calc(100vh - 100px);
       position: relative;
     }
-  
-  </style>
+    
+
+</style>
 <body>
     {%block header%}
     <header>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between" style="border: 2px solid #444598;">
             <h1>
               UNIVERSIDADE ESTADUAL DE SANTA CRUZ
             </h1>
             <div class="logoUESC">
-              <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px;">
+              <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px; height: 100px; border: 2px solid #444598; border-radius: 100px;">
             </div>
         </div>
     </header>
@@ -58,5 +59,17 @@
           {% endfor %}
       </div>
     {% endfor %} 
+
+    {% block footer %}
+        <footer class="fixed-bottom bg-light text-center">
+            <div class="container">
+                <p>Site Não Oficial desenvolvido por Gabriel dos Santos Sousa e Girleide Macario dos Santos</p>
+                <p>UNIVERSIDADE ESTADUAL DE SANTA CRUZ</p>
+                <p>Campus Soane Nazaré de Andrade, Rodovia Jorge Amado, km 16, Bairro Salobrinho.</p>
+                <p>CEP 45662-900. Ilhéus-Bahia</p>
+                <p><a href="http://www.uesc.br/nucleo-web/">Núcleo Web</a></p>
+            </div>
+        </footer>
+    {% endblock footer %}
 </body>
 </html>
