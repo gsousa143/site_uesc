@@ -3,7 +3,7 @@ from .models import *
 from .forms import *
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 
 def home(request):
     tipos = Tipo.objects.all()
@@ -73,4 +73,7 @@ def login(request):
     return render(request,"login.html",contexto)
 
 
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect("home")
 
