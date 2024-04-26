@@ -3,16 +3,16 @@
 {% load static %}
 
 {%block header%}
-<div class="d-flex justify-content-between">
-    <h1>
+<div class="d-flex align-items-center justify-content-center mt-4" style="background-color: #444598; border: 2px solid #444598; border-top-right-radius: 100px; border-bottom-right-radius: 100px;">
+  <h1 style="font-size: 24px; color: white;"> 
       UNIVERSIDADE ESTADUAL DE SANTA CRUZ
-    </h1>
-    <div class="logoUESC">
-      <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px;">
-    </div>
+  </h1>
+  <div class="logoUESC ml-auto" style="margin-top: -20px;">
+      <img src="{% static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px; height: 100px; background-color: #ffffff; border: 2px solid #444598; border-radius: 100px;">
+  </div>
 </div>
 
-<nav class="navbar navbar-expand-lg bg-light justify-content-center">
+<nav class="navbar navbar-expand-lg bg-light justify-content-center ">
   <div class="container-fluid">
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
