@@ -9,7 +9,7 @@
             <h4>Adicionar Tipo</h4>
         </div>
         <div class="card-body">
-            <form action="{% url 'additens' %}" method="post">
+            <form action="{% url 'tipo' %}" method="post">
                 {% csrf_token %}
                 {{ form_tipo.as_p }}
                 <button class="btn btn-primary" type="submit">Salvar Tipo</button>
@@ -22,7 +22,7 @@
             <h4>Adicionar Grupo</h4>
         </div>
         <div class="card-body">
-            <form action="{% url 'additens' %}" method="post">
+            <form action="{% url 'grupo' %}" method="post">
                 {% csrf_token %}
                 {{ form_grupo.as_p }}
                 <button class="btn btn-primary" type="submit">Salvar Grupo</button>
@@ -35,7 +35,7 @@
             <h4>Adicionar Link</h4>
         </div>
         <div class="card-body">
-            <form action="{% url 'additens' %}" method="post">
+            <form action="{% url 'link' %}" method="post">
                 {% csrf_token %}
                 {{ form_link.as_p }}
                 <button class="btn btn-primary" type="submit">Salvar Link</button>

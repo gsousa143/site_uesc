@@ -33,31 +33,14 @@ def editais(request):
 
 
 def additens(request):
-    form_link = LinkForm()
-    form_grupo = GrupoForm()
-    form_tipo = TipoForm()
+    link_form = LinkForm()
+    grupo_form = GrupoForm()
+    tipo_form = TipoForm()
+    if request.method=="POST":
+        pass
 
-    if request.method == 'POST':
-        if 'submit_link' in request.POST:
-            form_link = LinkForm(request.POST)
-            if form_link.is_valid():
-                form_link.save()
-                return HttpResponseRedirect(reverse("home"))
 
-        elif 'submit_grupo' in request.POST:
-            form_grupo = GrupoForm(request.POST)
-            if form_grupo.is_valid():
-                form_grupo.save()
-                return HttpResponseRedirect(reverse("home"))
 
-        elif 'submit_tipo' in request.POST:
-            form_tipo = TipoForm(request.POST)
-            if form_tipo.is_valid():
-                form_tipo.save()
-                return HttpResponseRedirect(reverse("home"))
-    
-    contexto = {'form_link': form_link, 'form_grupo': form_grupo, 'form_tipo': form_tipo}
-    return render(request, 'additens.html', contexto)
 
 
 
@@ -76,4 +59,10 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect("home")
+
+
+def cadastro(request):
+    form_cadastro = cadastroForm()
+    contexto = {"form_cadastro":form_cadastro}
+    return render(request,"cadastro.html",contexto)
 

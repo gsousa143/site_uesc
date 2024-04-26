@@ -1,0 +1,27 @@
+{%extends "base.html"%}
+{%block titulo%}
+Cadastro
+{%endblock titulo%}
+
+{%block main%}
+
+<div class="card">
+    <div class="card-header text-center">
+        <h2>Cadastro</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" actiopn="{% url 'cadastro' %}" class="d-flex flex-column align-content-around m-2 gap-2">
+            {% csrf_token %}
+            {{form_cadastro.first_name}}
+            {{form_cadastro.last_name}}
+            {{form_cadastro.username}}
+            {{form_cadastro.password}}
+            <input name="confirmacao" type="password" placeholder="Confirmação de Senha" class="form-control my-2 p-2">
+            
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="{%url 'home'%}" class="btn btn-danger"> Cancelar </a>
+        </form>
+    </div>
+</div>
+
+{%endblock main%}
