@@ -6,18 +6,21 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
 {%endblock titulo%}
 
 
-{%block header%}
-<div class="d-flex justify-content-between">
-    <h1>
+{% block header %}
+<div class="d-flex align-items-center justify-content-center mt-4" style="background-color: #02335E; border: 2px solid #02335E; border-top-right-radius: 100px; border-bottom-right-radius: 100px; margin-right: 16px;">
+  <h1 class="text-center" style="font-size: 24px; color: white; flex-grow: 1;"> 
       UNIVERSIDADE ESTADUAL DE SANTA CRUZ
-    </h1>
-    <div class="logoUESC">
-      <img src="{%static '/brasao_uesc.png' %}" class="img-fluid scale-25" alt="UESC logo" style="width: 100px;">
-    </div>
+  </h1>
+  <div class="logoUESC" style="margin-right: 13px; margin-top: -20px; margin-bottom: 13px;">
+      <div style="width: 100px; height: 100px; background-color: #ffffff; border: 2px solid #02335E; border-radius: 50%; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+          <img src="{% static '/brasao_uesc.png' %}" class="img-fluid" alt="UESC logo" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+      </div>
+  </div>
 </div>
 
-<nav class="navbar navbar-expand-lg bg-light justify-content-center">
-  <div class="container-fluid">
+
+<nav class="navbar navbar-expand-lg bg-light justify-content-center" style="margin-bottom: 40px;">
+  <div class="d-flex align-items-center justify-content-center">
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -110,141 +113,144 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
       </ul>
     </div>
   </div>
+  <button class="nav-item" type="button" data-bs-toggle="collapse" data-bs-target="#menuCollapse" aria-controls="menuCollapse" style="color:white; border: 2px solid #02335E; border-radius: 15px; background-color: #02335E;">
+    Mais
+  </button>
+  
+  <div class="collapse" id="menuCollapse">
+    <ul class="nav justify-content-center" style="margin-bottom: 20px; " >
+      <li class="nav-item">
+        <a class="nav-link" href="http://www.uesc.br/centros/">Centros e Grupos de Pesquisa</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://www.uesc.br/arint/">Internacional</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://www.uesc.br/laboratorios/">Laboratorios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://www.uesc.br/mapa/">Mapa da UESC</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://www.uesc.br/nucleos/">Núcleos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://www.uesc.br/projetos/">Projetos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://www.uesc.br/proad/index.php?item=conteudo_gera_requerimento_academico.php">Protocolo Digital</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Adicionar itens</a>
+      </li>
+    </ul>
+  </div>
+  
 </nav>
 
 
-<ul class="nav justify-content-center">
-  <li class="nav-item">
-    <a class="nav-link" href="http://www.uesc.br/centros/">Centros e Grupos de Pesquisa</a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="http://www.uesc.br/arint/">Internacional</a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="http://www.uesc.br/laboratorios/">Laboratorios</a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="http://www.uesc.br/mapa/">Mapa da UESC</a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="http://www.uesc.br/nucleos/">Núcleos</a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="http://www.uesc.br/projetos/">Projetos</a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="http://www.uesc.br/proad/index.php?item=conteudo_gera_requerimento_academico.php">Protocolo Digital</a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'login' %}">Adicionar itens</a>
-  </li>
-</ul>
 {%endblock header%}
 
 
 {%block main%}
-<div class="container-fluid">
-<div class="d-flex row">
+<style>
+  .link {
+    text-decoration: none;
+  }
 
-  <div class="d-flex flex-wrap gap-3 col-lg-10 col-12">
-  {% for tipo, grupos in grupos_por_tipo.items %}
-  {% if tipo.tipo != "MENU" %}
+  .link {
+    color: #02335E;
+  }
+</style>
+<div class="container-fluid" >
+  <div class="d-flex row" >
 
-    <div class="card flex-fill">
-      <div class="card-header">
-      <strong>{{tipo.tipo}}</strong>
+    <div class="d-flex flex-wrap gap-3 col-lg-10 col-12" >
+      {% for tipo, grupos in grupos_por_tipo.items %}
+      {% if tipo.tipo != "MENU" %}
+
+      <div class="card flex-fill" >
+        <div class="card-header" style="background-color: #02335e3b; " >
+          <strong>{{tipo.tipo}}</strong>
+        </div>
+
+        <div class="card-body">
+          {% for grupo in grupos %}
+          <strong>{{ grupo.titulo }}</strong>
+          <ul class="resultado-list">
+            {% for link in grupo.link_set.all %}
+            <li>
+              <a href="{{ link.endereco }}" class="link">
+                {{ link.nome }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endfor %}
+        </div>
+
+        {% if tipo.tipo == "EDITAIS" or tipo.tipo == "NOTICIAS" %}
+        <div class="card-footer" >
+          <div class="d-flex justify-content-end">
+            {% if tipo.tipo == 'EDITAIS' %}
+            <a href="{% url 'editais' %}">
+              <button id="show-more-btn" class="btn " style="background-color: #02335E; color: #ffffff;">Mostrar Mais</button>
+            </a>
+            {% else %}
+            <a href="{% url 'noticias' %}">
+              <button id="show-more-btn" class="btn " style="background-color: #02335E; color: #ffffff;">Mostrar Mais</button>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
       </div>
-
-      <div class="card-body">
-      {% for grupo in grupos %}
-      <strong>{{ grupo.titulo }}</strong>
-      <ul class="resultado-list">
-      {% for link in grupo.link_set.all %}
-      <li>
-      <a href="{{ link.endereco }}">
-      {{ link.nome }}
-      </a>
-      </li>
-      {% endfor %}
-      </ul>
-      {% endfor %}
-      </div>
-      {% if tipo.tipo == "EDITAIS" or tipo.tipo == "NOTICIAS" %}
-      <div class="card-footer">
-      
-      <div class="d-flex justify-content-end">
-      {% if tipo.tipo == 'EDITAIS' %}
-      <a href="{% url 'editais' %}">
-      <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-      </a>
-      {% else %}
-      <a href="{% url 'noticias' %}">
-      <button id="show-more-btn" class="btn btn-primary">Mostrar Mais</button>
-      </a>
       {% endif %}
-      </div>
-      
-      </div>
-      {% endif %}
-
+      {% endfor %}
     </div>
-  {% endif %}
-  {% endfor %}
-  </div>
 
-
-  <div class="col-lg-2 col-12">
-
-    <div class="card d-flex">
-      <div class="card-body flex-grow">
-        <ul class="nav d-flex flex-column justify-content-between align-content-around">
-        {% for tipo, grupos in grupos_por_tipo.items %}
-        {%if tipo.tipo == "MENU" %}
-        {% for grupo in grupos %}
-        {%if grupo.titulo == "BANNER"%}
-        {% for link in grupo.link_set.all %}
-          <li class="nav-item">
-            <a href="{{ link.endereco }}" class="nav-link btn btn-dark">{{ link.nome }}</a>
-          </li>
-        {% endfor %}
-        {%endif%}
-        {% endfor %}
-        {%endif%}
-        {% endfor %}
-        </ul>
+    <div class="col-lg-2 col-12">
+      <div class="card d-flex">
+        <div class="card-body flex-grow">
+          <ul class="nav d-flex flex-column justify-content-between align-content-around">
+            {% for tipo, grupos in grupos_por_tipo.items %}
+            {% if tipo.tipo == "MENU" %}
+            {% for grupo in grupos %}
+            {% if grupo.titulo == "BANNER"%}
+            {% for link in grupo.link_set.all %}
+            <li class="nav-item">
+              <a href="{{ link.endereco }}" class="nav-link btn btn-dark" style="color: #02335E; font-weight: bold;">{{ link.nome }}</a>
+            </li>            
+            {% endfor %}
+            {% endif%}
+            {% endfor %}
+            {% endif%}
+            {% endfor %}
+          </ul>
+        </div>
       </div>
     </div>
 
   </div>
 </div>
-</div>
+
 {%endblock main%}
 
 
 
 
-{%block footer%}
-<div class="text-center">
+{% block footer %}
+<div class="text-center" style="margin-top: 60px; color: #ffffff; background-color: #02335E; padding: 10px;">
   <p>
-    Site Não Oficial desenvolvido por Gabriel dos Santos Sousa e Girleide Macario dos Santos
-
-    UNIVERSIDADE ESTADUAL DE SANTA CRUZ
-
-    Campus Soane Nazaré de Andrade, Rodovia Jorge Amado, km 16, Bairro Salobrinho. 
-
-    CEP 45662-900. Ilhéus-Bahia 
-
+    Site Não Oficial desenvolvido por Gabriel dos Santos Sousa e Girleide Macario dos Santos<br>
+    UNIVERSIDADE ESTADUAL DE SANTA CRUZ<br>
+    Campus Soane Nazaré de Andrade, Rodovia Jorge Amado, km 16, Bairro Salobrinho.<br>
+    CEP 45662-900. Ilhéus-Bahia<br>
     <a href="http://www.uesc.br/nucleo-web/">Núcleo Web</a>
   </p>
 </div>
-{%endblock footer%}
+{% endblock footer %}
 
 
 

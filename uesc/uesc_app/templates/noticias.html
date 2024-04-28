@@ -1,30 +1,69 @@
-
-
-{%extends "base.html"%}
+{% extends "base.html" %}
 {% load static %}
 
-{%block titulo%}
-NOTICIAS
-{%endblock titulo%}
+{% block titulo %}
+NOTÍCIAS
+{% endblock titulo %}
 
-{%block header%}
+{% block header %}
+<div class="d-flex align-items-center justify-content-center mt-4" style="background-color: #02335E; border: 2px solid #02335E; border-top-right-radius: 100px; border-bottom-right-radius: 100px; margin-right: 16px;">
+    <h1 class="text-center" style="font-size: 24px; color: white; flex-grow: 1;"> 
+        UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+    </h1>
+    <div class="logoUESC" style="margin-right: 13px; margin-top: -20px; margin-bottom: 13px;">
+        <div style="width: 100px; height: 100px; background-color: #ffffff; border: 2px solid #02335E; border-radius: 50%; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+            <img src="{% static '/brasao_uesc.png' %}" class="img-fluid" alt="UESC logo" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+        </div>
+    </div>
+  </div>
+{% endblock header %}
 
-{%endblock header%}
-
-
-
-{%block main%}
-{% for grupo in noticias %}
-<h2>{{ grupo.titulo }}</h2>
-<p>Data: {{ grupo.data }}</p>
-<ul>
-    {% for link in grupo.link_set.all %}
-        <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
+{% block main %}
+<div class="container mt-4">
+    {% for ano, meses_em_ano in noticias_por_ano.items %}
+    <div class="ano card mb-4" style="border-radius: 10px;">
+        <div class="card-header text-white" style="background-color: #05192B;">
+            <strong class="d-flex justify-content-center align-items-center">NOTÍCIAS</strong>
+        </div>
+        <div class="card-body">
+            <h2>{{ ano }}</h2>
+            {% for mes, noticias_mes in meses_em_ano.items %}
+            <div class="mes card mb-3">
+                <div class="card-header text-black"  style="background-color: #02335e6c;">
+                    <h3>{{ mes }}</h3>
+                </div>
+                <div class="card-body">
+                    {% for grupo in noticias_mes %}
+                    <div class="grupo card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ grupo.titulo }}</h5>
+                            <p class="card-text">Data: {{ grupo.data|date:"d/m/Y" }}</p>
+                            <ul class="list-unstyled">
+                                {% for link in grupo.link_set.all %}
+                                <li><a href="{{ link.endereco }}">{{ link.nome }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     {% endfor %}
-</ul>
-{% endfor %}
-{%endblock main%}
+</div>
+{% endblock main %}
 
-{%block footer%}
+{% block footer %}
+<div class="text-center" style="margin-top: 60px; color: #ffffff; background-color: #02335E; padding: 10px;">
+  <p>
+    Site Não Oficial desenvolvido por Gabriel dos Santos Sousa e Girleide Macario dos Santos<br>
+    UNIVERSIDADE ESTADUAL DE SANTA CRUZ<br>
+    Campus Soane Nazaré de Andrade, Rodovia Jorge Amado, km 16, Bairro Salobrinho.<br>
+    CEP 45662-900. Ilhéus-Bahia<br>
+    <a href="http://www.uesc.br/nucleo-web/">Núcleo Web</a>
+  </p>
+</div>
+{% endblock footer %}
 
-{%endblock footer%}
