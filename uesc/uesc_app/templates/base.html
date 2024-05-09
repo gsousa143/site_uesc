@@ -1,4 +1,4 @@
-
+{% load static %}
 <!doctype html>
 <html lang="pt">
   <head>
@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
       .nav-link.btn {
-        text-align: center;
+        
         width: 100%;
       }
       
@@ -19,17 +19,150 @@
   </head>
   <body>
     <header>
-      {%block header%}
-      {%endblock header%}
+      <div class="d-flex align-items-center justify-content-center mt-4" style="background-color: #02335E; border: 2px solid #02335E; border-top-right-radius: 100px; border-bottom-right-radius: 100px; margin-right: 16px;">
+        <h1 class="text-center" style="font-size: 24px; color: white; flex-grow: 1;"> 
+            UNIVERSIDADE ESTADUAL DE SANTA CRUZ
+        </h1>
+        <div class="logoUESC" style="margin-right: 13px; margin-top: -20px; margin-bottom: 13px;">
+            <div style="width: 100px; height: 100px; background-color: #ffffff; border: 2px solid #02335E; border-radius: 50%; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                <img src="{% static '/brasao_uesc.png' %}" class="img-fluid" alt="UESC logo" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            </div>
+        </div>
+      </div>
+      
+      
+      <nav class="navbar navbar-expand-lg bg-light justify-content-center" style="margin-bottom: 40px;">
+        <div class="d-flex align-items-center justify-content-center">
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarMainMenu">
+            <ul class="navbar-nav me-auto mb-0 mb-lg-0 justify-content-center">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  A UESC
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/index.php?item=conteudo_historia.php">A História</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/index.php?item=conteudo_localizacao.php">Localização</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/regimento.pdf">Regimento</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/estatuto.pdf">Estatuto</a></li>
+                  <li><a class="dropdown-item" href="https://www2.uesc.br/publicacoes/portarias">Portarias</a></li>
+                  <li><a class="dropdown-item" href="https://www2.uesc.br/publicacoes/editais">Editais</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/publicacoes/">Conselhos Superiores</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/a_uesc/calendario-academico.php">Caléndario</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/galeria/">Galeria de Fotos</a></li>
+                </ul>
+              </li>
+      
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Estrutura Organizacional
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="http://www.uesc.br/reitoria/">Reitoria</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/proreitoria/">Pró-Reitoria e Procuradoria</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/publicacoes/">Conselhos</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/assessorias/">Acessorias</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/departamentos/">Departamentos</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/colegiados/">Colegiados</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/comites_comissoes/">Comitês e Comissões</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/colecoes_cientificas/">Coleções Científicas</a></li>
+                </ul>
+              </li>
+      
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Serviços
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="http://www.uesc.br/auditorios/">Auditorios</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/biblioteca/">Biblioteca</a></li>
+                  <li><a class="dropdown-item" href="https://www.comprasnet.ba.gov.br/">Licitações</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/maxdemenezes/">Pav. Max de Menezes</a></li>
+                  <li><a class="dropdown-item" href="https://www.prograd.uesc.br/PortalSagres/">Portal Acadêmico</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/proad/index.php?item=conteudo_gera_requerimento_academico.php">Protocolo Digital</a></li>
+                  <li><a class="dropdown-item" href="https://www.portalseibahia.saeb.ba.gov.br/pagina-acesso-externo">Peticionamento Eletrônico do SEI</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Destaques
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="http://www.uesc.br/ascom/index.php?item=conteudo_entrevistas.php">Entrevistas</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/jornal/">Jornal UESC</a></li>
+                  <li><a class="dropdown-item" href="https://www2.uesc.br/eventos">Eventos</a></li>
+                  <li><a class="dropdown-item" href="https://www2.uesc.br/noticias/">Notícias</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://www.uesc.br/cursos/graduacao/">Graduação</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://www.uesc.br/cursos/pos_graduacao/">Pós-Graduação</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://proex.uesc.br/">Extensão</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Servidores
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="http://www.uesc.br/cadf/">Avaliação Funcional</a></li>
+                  <li><a class="dropdown-item" href="https://comprasnet.ba.gov.br/">Comprasnet.Ba</a></li>
+                  <li><a class="dropdown-item" href="https://rhbahia.ba.gov.br/">RH Bahia</a></li>
+                  <li><a class="dropdown-item" href="https://seibahia.ba.gov.br/sip/login.php?sigla_orgao_sistema=GOVBA&sigla_sistema=SEI&infra_url=L3NlaS8=">Portal Sei Bahia</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/uescoop/">Uescoop</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://www.uesc.br/fale_conosco/">Fale Conosco</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Mais
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="http://www.uesc.br/centros/">Centros e Grupos de Pesquisa</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/arint/">Internacional</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/laboratorios/">Laboratorios</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/mapa/">Mapa da UESC</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/nucleos/">Núcleos</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/projetos/">Projetos</a></li>
+                  <li><a class="dropdown-item" href="http://www.uesc.br/proad/index.php?item=conteudo_gera_requerimento_academico.php">Protocolo Digital</a></li>
+                  <li><a class="dropdown-item" href="{% url 'login' %}">Adicionar itens</a></li>
+      
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+      </nav>
     </header>
+
+
     <main>
       {%block main%}
       {%endblock main%}
     </main>
 
     <footer>
-      {%block footer%}
-      {%endblock footer%}
+      <div class="text-center" style="margin-top: 60px; color: #ffffff; background-color: #02335E; padding: 10px;">
+        <p>
+          Site Não Oficial desenvolvido por Gabriel dos Santos Sousa e Girleide Macario dos Santos<br>
+          UNIVERSIDADE ESTADUAL DE SANTA CRUZ<br>
+          Campus Soane Nazaré de Andrade, Rodovia Jorge Amado, km 16, Bairro Salobrinho.<br>
+          CEP 45662-900. Ilhéus-Bahia<br>
+          <a href="http://www.uesc.br/nucleo-web/">Núcleo Web</a>
+        </p>
+      </div>
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

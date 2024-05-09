@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.contrib.auth.hashers import make_password
+from django.contrib import messages
 
 def home(request):
     tipos = Tipo.objects.all()
@@ -54,14 +55,43 @@ def editais(request):
 
 
 def additens(request):
-    link_form = LinkForm()
-    grupo_form = GrupoForm()
-    tipo_form = TipoForm()
-    if request.method=="POST":
-        pass
+    form_link = LinkForm()
+    form_grupo = GrupoForm()
+    form_tipo = TipoForm()
+    
+    if request.method == "POST":
+        if 'tipo_submit' in request.POST: 
+            form_tipo = TipoForm(request.POST)
+            if form_tipo.is_valid():
+                form_tipo.save()
+                messages.success(request, 'Item adicionado com sucesso.')
+                return HttpResponseRedirect(reverse("additens"))
+            else:
+                messages.error(request, 'Falha ao adicionar item. Verifique os campos do formulário.')
+        elif 'grupo_submit' in request.POST:  
+            form_grupo = GrupoForm(request.POST)
+            if form_grupo.is_valid():
+                form_grupo.save()
+                messages.success(request, 'Item adicionado com sucesso.')
+                return HttpResponseRedirect(reverse("additens"))
+            else:
+                messages.error(request, 'Falha ao adicionar item. Verifique os campos do formulário.')
+        elif 'link_submit' in request.POST:  
+            form_link = LinkForm(request.POST)
+            if form_link.is_valid():
+                form_link.save()
+                messages.success(request, 'Item adicionado com sucesso.')
+                return HttpResponseRedirect(reverse("additens"))
+            else:
+                messages.error(request, 'Falha ao adicionar item. Verifique os campos do formulário.')
 
-    contexto = {"link_form":link_form,"grupo_form":grupo_form,"tipo_form":tipo_form}
-    return render(request,"additens.html", contexto)
+
+
+    contexto = {"form_link": form_link, "form_grupo": form_grupo, "form_tipo": form_tipo}
+    return render(request, "additens.html", contexto)
+
+
+
 
 
 
@@ -97,3 +127,14 @@ def cadastro(request):
     form_cadastro = cadastroForm()
     contexto = {"form_cadastro":form_cadastro}
     return render(request,"cadastro.html",contexto)
+
+def remover(request):
+    form_remover = RemoverForm()
+    contexto = {"form_remover": form_remover}
+    if request.method=="POST":
+        user = authenticate(username=request.POST.get("username"),password=request.POST.get("password"))
+        if user:
+            user.delete()
+            return HttpResponseRedirect(reverse("home"))
+
+    return render(request,"remover.html",contexto)
