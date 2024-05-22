@@ -141,6 +141,7 @@ def editarUsuario (request,id):
     if request.method == 'POST':
         usuario = User.objects.get(id=id)
         novo_usuario = request.POST.copy()
+        novo_usuario["password"] = usuario.password
         user = cadastroForm(instance=usuario, data=novo_usuario)
         if user.is_valid:
             user.save()
@@ -157,7 +158,7 @@ def adm(request):
 
 def editarpermissao(request,id):
     usuario = User.objects.get(id = id)
-    form_cadastro = cadastroForm()
+    form_cadastro = cadastroForm(instance=usuario)
     contexto = {"usuario":usuario,"form_cadastro":form_cadastro}
     return render(request, "editarpermissao.html", contexto)
 
@@ -185,9 +186,11 @@ def alternarstaff(request,id):
 
 
 def admusuario(request,id):
+    
     usuario = User.objects.get(id=id)
     permissoes = Permission.objects.order_by("id")
-    form_cadastro = cadastroForm()
+    form_cadastro = cadastroForm(instance=usuario)
+
     contexto = {
         "usuario":usuario,
         "permissoes":permissoes,
