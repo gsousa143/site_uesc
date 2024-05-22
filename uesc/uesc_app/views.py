@@ -105,7 +105,10 @@ def logout(request):
 
 def usuario(request):
     form_login = LoginForm()
-    form_cadastro = cadastroForm()
+    if request.user.is_authenticated:
+        form_cadastro = cadastroForm(instance=request.user)
+    else:
+        form_cadastro = cadastroForm()
     contexto = {"form_login": form_login,"form_cadastro":form_cadastro}
 
     return render(request,"usuario.html",contexto)
