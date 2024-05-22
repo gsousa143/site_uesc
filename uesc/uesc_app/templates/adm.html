@@ -27,17 +27,18 @@
                 <td>{{ usuario.last_name }}</td>
                 
 
-                <td> 
-                    <a href="{%url 'alternarsuperuser' usuario.id%}">
+                <td class="text-center">
+                    <a href="{% url 'alternarsuperuser' usuario.id %}" class="btn {% if usuario.is_superuser %}btn-success{% else %}btn-danger{% endif %}">
                         {% if usuario.is_superuser %}
                             Sim
-                        {%else%}
+                        {% else %}
                             Não
-                        {%endif%}
+                        {% endif %}
                     </a>
                 </td>
+                
                     
-                <td> <a href="{%url 'alternaractive' usuario.id%}">
+                <td class="text-center"> <a href="{%url 'alternaractive' usuario.id%}" class="btn {% if usuario.is_active %}btn-success{% else %}btn-danger{% endif %}">
                     {% if usuario.is_active %}
                         Sim
                     {%else%}
@@ -46,7 +47,7 @@
                 </a></td>
 
 
-                <td> <a href="{%url 'alternarstaff' usuario.id%}">
+                <td class="text-center"> <a href="{%url 'alternarstaff' usuario.id%}" class="btn {% if usuario.is_staff %}btn-success{% else %}btn-danger{% endif %}">
                     {% if usuario.is_staff %}
                         Sim
                     {%else%}
@@ -58,7 +59,7 @@
 
 
 
-                <td> <a href="{%url 'remover' usuario.id%}">Excluir Conta</a> </td>
+                <td class="text-center"> <a href="{%url 'remover' usuario.id%}" class="btn btn-danger">Excluir Conta</a> </td>
                 
                 
             </tr>

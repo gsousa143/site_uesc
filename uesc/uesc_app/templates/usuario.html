@@ -12,15 +12,35 @@ Login
         <form method="post" action="{% url 'editarusuario' %}" class="d-flex flex-column align-content-around m-2 gap-2">
             {% csrf_token %}
             {% csrf_token %}
-            <p>Usuário:</p>
+            <p><strong>Usuário:</strong></p>
             <input type="text" readonly class="form-control-plaintext my-2" value="{{user.username}}">
 
-            <p>Nome:</p>
+            <p><strong>Nome:</strong></p>
+            <div class="d-flex flex-row">            
+            <input type="text" readonly class="form-control-plaintext my-2" value="{{user.first_name }}">
+            <input type="text" readonly class="form-control-plaintext my-2" value="{{user.last_name }}"> 
+        </div>
+
+            <p><strong>Email:</strong></p>
+            <input type="text" readonly class="form-control-plaintext my-2" value="{{user.email}}">
+
+        </form>
+    </div>
+</div>
+<div class="card m-8">
+    <div class="card-header]">
+        <h4 class="text-center">
+            Editar Perfil
+        </h4>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{% url 'editarusuario' %}" class="d-flex flex-column align-content-around m-2 gap-2">
+            <p><strong>Nome:</strong></p>
             <div class="d-flex gap-2">
                 {{form_cadastro.first_name}}
                 {{form_cadastro.last_name}}
             </div>
-            <p>Email:</p>
+            <p><strong>Email:</strong></p>
             {{form_cadastro.email}}
             <div class="d-flex justify-content-around">
                 <button type="submit" class="btn btn-primary px-5 py-2">Editar Perfil</button>
@@ -32,7 +52,6 @@ Login
         </form>
     </div>
 </div>
-
 
 {% else %}
 
