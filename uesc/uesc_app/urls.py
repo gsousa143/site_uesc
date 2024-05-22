@@ -18,7 +18,7 @@ urlpatterns = [
     path("cadastro/",views.cadastro,name="cadastro"),
     path("remover/<id>",views.remover, name="remover"),
     path("editarusuario/<id>",views.editarUsuario,name="editarusuario"),
-
+    path("criarusuario/<id>",views.editarUsuario,name="criarusuario"),
 
     path("adm",views.adm,name="adm"),
     path("admusuario/<id>",views.admusuario,name="admusuario"),

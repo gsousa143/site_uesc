@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission, Group
 
 def home(request):
     tipos = Tipo.objects.all()
@@ -146,7 +146,16 @@ def editarUsuario (request,id):
         novo_usuario = request.POST.copy()
         novo_usuario["password"] = usuario.password
         user = cadastroForm(instance=usuario, data=novo_usuario)
+        
         if user.is_valid:
+
+            permlist = []
+            for permissao in request.POST.getlist("permissao"):
+                permlist.append(Permission.objects.get(id=permissao))
+            user = user.save(commit=False)
+            user.password = make_password(user.password)
+            user.save()
+            user.user_permissions.set(permlist)
             user.save()
     return HttpResponseRedirect(reverse('home'))
 
@@ -158,13 +167,13 @@ def adm(request):
         return render(request, "adm.html", contexto)
     return HttpResponseRedirect(reverse('home'))
 
-
+'''
 def editarpermissao(request,id):
     usuario = User.objects.get(id = id)
     form_cadastro = cadastroForm(instance=usuario)
     contexto = {"usuario":usuario,"form_cadastro":form_cadastro}
     return render(request, "editarpermissao.html", contexto)
-
+'''
 
 def alternaractive(request,id):
     usuario = User.objects.get(id = id)
@@ -190,13 +199,24 @@ def alternarstaff(request,id):
 
 def admusuario(request,id):
     
+    permissoes = Permission.objects.order_by('id')
+    permissoes_agrupadas = {}
+    for permissao in permissoes:
+        objeto = permissao.codename.split("_")
+        if objeto[1] not in permissoes_agrupadas:
+            permissoes_agrupadas[objeto[1]] = {objeto[0] : permissao.id}
+        else:
+            permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+    
+    
     usuario = User.objects.get(id=id)
-    permissoes = Permission.objects.order_by("id")
     form_cadastro = cadastroForm(instance=usuario)
-
     contexto = {
-        "usuario":usuario,
-        "permissoes":permissoes,
-        "form_cadastro":form_cadastro}
+    "usuario":usuario,
+    "permissoes":permissoes_agrupadas,
+    "form_cadastro":form_cadastro,
+    "grupos": Group.objects.all(),
+    }
+    
     return render(request,"admusuario.html",contexto)
     
