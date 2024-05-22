@@ -15,7 +15,7 @@ def home(request):
         grupos_por_tipo[tipo] = Grupo.objects.filter(
             tipo=tipo).prefetch_related('link_set').all()
         ''' Dicionario onde indice é referente ao tipo de grupo'''
-    
+
     contexto = {'grupos_por_tipo': grupos_por_tipo}
     return render(request, "index.html", contexto)
 
@@ -58,58 +58,50 @@ def additens(request):
     form_link = LinkForm()
     form_grupo = GrupoForm()
     form_tipo = TipoForm()
-    
-    if request.method == "POST":
-        if 'tipo_submit' in request.POST: 
-            form_tipo = TipoForm(request.POST)
-            if form_tipo.is_valid():
-                form_tipo.save()
-                messages.success(request, 'Item adicionado com sucesso.')
-                return HttpResponseRedirect(reverse("additens"))
-            else:
-                messages.error(request, 'Falha ao adicionar item. Verifique os campos do formulário.')
-        elif 'grupo_submit' in request.POST:  
-            form_grupo = GrupoForm(request.POST)
-            if form_grupo.is_valid():
-                form_grupo.save()
-                messages.success(request, 'Item adicionado com sucesso.')
-                return HttpResponseRedirect(reverse("additens"))
-            else:
-                messages.error(request, 'Falha ao adicionar item. Verifique os campos do formulário.')
-        elif 'link_submit' in request.POST:  
-            form_link = LinkForm(request.POST)
-            if form_link.is_valid():
-                form_link.save()
-                messages.success(request, 'Item adicionado com sucesso.')
-                return HttpResponseRedirect(reverse("additens"))
-            else:
-                messages.error(request, 'Falha ao adicionar item. Verifique os campos do formulário.')
-
-
 
     contexto = {"form_link": form_link, "form_grupo": form_grupo, "form_tipo": form_tipo}
     return render(request, "additens.html", contexto)
 
+def formLink(request):
+    form = LinkForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse("additens"))
 
-
-
+def formGrupo(request):
+    form = GrupoForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse("additens"))
+    
+def formTipo(request):
+    form = TipoForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse("additens"))
 
 
 def login(request):
-    form_login = LoginForm()
-    contexto = {"form_login": form_login}
-    if request.method=="POST":
+    if request.method == "POST":
         user = authenticate(username=request.POST.get("username"),password=request.POST.get("password"))
         if user:
-            auth_login(request,user)
-            return HttpResponseRedirect(reverse("additens"))
-
-    return render(request,"login.html",contexto)
+            auth_login(request,user = user)
+        else:
+            messages.error(request, 'Usuário ou senha inválidos.')
+    return HttpResponseRedirect(reverse("usuario"))
 
 
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect(reverse("home"))
+    return HttpResponseRedirect(reverse("usuario"))
+
+
+def usuario(request):
+    form_login = LoginForm()
+    form_cadastro = cadastroForm()
+    contexto = {"form_login": form_login,"form_cadastro":form_cadastro}
+
+    return render(request,"usuario.html",contexto)
 
 
 def cadastro(request):
@@ -128,13 +120,57 @@ def cadastro(request):
     contexto = {"form_cadastro":form_cadastro}
     return render(request,"cadastro.html",contexto)
 
-def remover(request):
-    form_remover = RemoverForm()
-    contexto = {"form_remover": form_remover}
-    if request.method=="POST":
-        user = authenticate(username=request.POST.get("username"),password=request.POST.get("password"))
-        if user:
-            user.delete()
-            return HttpResponseRedirect(reverse("home"))
 
-    return render(request,"remover.html",contexto)
+def remover(request,id):
+        user = User.objects.get(id=id)
+        user.delete()
+        auth_logout(request)
+        return HttpResponseRedirect(reverse("home"))
+
+
+
+
+def editarUsuario (request):
+    if request.method == 'POST':
+        usuario = User.objects.get(id=request.user.id)
+        novo_usuario = request.POST.copy()
+        novo_usuario['password'] = usuario.password
+        novo_usuario['username'] = usuario.username
+        user = cadastroForm(instance=usuario, data=novo_usuario)
+        if user.is_valid:
+            user.save()
+    return HttpResponseRedirect(reverse('home'))
+
+
+def adm(request):
+    usuarios = User.objects.all;
+    contexto = {"usuarios":usuarios}
+    return render(request, "adm.html", contexto)
+
+
+def editarpermissao(request,id):
+    usuario = User.objects.get(id = id)
+    contexto = {"usuario":usuario}
+    return render(request, "editarpermissao.html", contexto)
+
+
+def alternaractive(request,id):
+    usuario = User.objects.get(id = id)
+    usuario.is_active = not usuario.is_active
+    usuario.save()
+    return HttpResponseRedirect(reverse("adm"))
+
+
+
+def alternarsuperuser(request,id):
+    usuario = User.objects.get(id = id)
+    usuario.is_superuser = not usuario.is_superuser
+    usuario.save()
+    return HttpResponseRedirect(reverse("adm"))
+
+
+def alternarstaff(request,id):
+    usuario = User.objects.get(id = id)
+    usuario.is_staff = not usuario.is_staff
+    usuario.save()
+    return HttpResponseRedirect(reverse("adm"))

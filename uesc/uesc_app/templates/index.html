@@ -7,6 +7,7 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
 
 
 {%block main%}
+
 <style>
   .link {
     text-decoration: none;
@@ -21,7 +22,6 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
 
     <div class="d-flex flex-wrap gap-3 col-lg-12 col-12" >
       {% for tipo, grupos in grupos_por_tipo.items %}
-      {% if tipo.tipo != "MENU" %}
 
       <div class="card flex-fill" >
         <div class="card-header" style="background-color: #02335e3b; " >
@@ -60,7 +60,6 @@ UNIVERSIDADE ESTADUAL DE SANTA CRUZ
         {% endif %}
 
       </div>
-      {% endif %}
       {% endfor %}
     </div>
 

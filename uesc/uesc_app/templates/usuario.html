@@ -1,0 +1,58 @@
+{%extends "base.html"%}
+{%block titulo%}
+Login
+{%endblock titulo%}
+
+{%block main%}
+
+{% if user.is_authenticated %}
+
+<div class="card m-8">
+    <div class="card-body">
+        <form method="post" action="{% url 'editarusuario' %}" class="d-flex flex-column align-content-around m-2 gap-2">
+            {% csrf_token %}
+            {% csrf_token %}
+            <p>Usuário:</p>
+            <input type="text" readonly class="form-control-plaintext my-2" value="{{user.username}}">
+
+            <p>Nome:</p>
+            <div class="d-flex gap-2">
+                {{form_cadastro.first_name}}
+                {{form_cadastro.last_name}}
+            </div>
+            <p>Email:</p>
+            {{form_cadastro.email}}
+            <div class="d-flex justify-content-around">
+                <button type="submit" class="btn btn-primary px-5 py-2">Editar Perfil</button>
+                <a class="btn btn-danger px-5 py-2" href="{% url 'logout' %}">Deslogar</a>
+                {% if not user.is_superuser %}
+                    <a class="btn btn-danger px-5 py-2" href="{% url 'remover' user.id %}">Remover Conta</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% else %}
+
+<div class="card m-8">
+    <div class="card-header text-center">
+        <h2>Login</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{% url 'login' %}" class="d-flex flex-column align-content-around m-2 gap-2">
+            {% csrf_token %}
+            {{form_login.username}}
+            {{form_login.password}}
+            <div class="d-flex justify-content-around">
+                <button type="submit" class="btn btn-primary px-5 py-2">Logar</button>
+                <a class="btn btn-secondary px-5 py-2" href="{%url 'cadastro'%}"> Registre-se</a>
+            </div>
+        </form>
+    </div>
+</div>
+{%endif%}
+
+
+{% endblock main%}

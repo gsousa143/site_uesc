@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome de Usuário</th>
+                <th>Email</th>
+                <th>Primeiro Nome</th>
+                <th>Sobrenome</th>
+                <th>Super Usuário</th>
+                <th>Ativo</th>
+                <th>Funcionários</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.first_name }}</td>
+                <td>{{ usuario.last_name }}</td>
+                
+
+                <td> 
+                    <a href="{%url 'alternarsuperuser' usuario.id%}">
+                        {% if usuario.is_superuser %}
+                            Sim
+                        {%else%}
+                            Não
+                        {%endif%}
+                    </a>
+                </td>
+                    
+                <td> <a href="{%url 'alternaractive' usuario.id%}">
+                    {% if usuario.is_active %}
+                        Sim
+                    {%else%}
+                        Não
+                    {%endif%}
+                </a></td>
+
+
+                <td> <a href="{%url 'alternarstaff' usuario.id%}">
+                    {% if usuario.is_staff %}
+                        Sim
+                    {%else%}
+                        Não
+                    {%endif%}
+                </a></td>
+
+
+
+
+
+                <td> <a href="{%url 'remover' usuario.id%}">Excluir Conta</a> </td>
+                
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock main %}
