@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block main %}
+<a href="{% url 'cadastro' %}"> Adicionar Usuario</a>
 <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -11,6 +12,7 @@
                 <th>Email</th>
                 <th>Primeiro Nome</th>
                 <th>Sobrenome</th>
+                <th>Editar</th>
                 <th>Super Usuário</th>
                 <th>Ativo</th>
                 <th>Funcionários</th>
@@ -26,6 +28,8 @@
                 <td>{{ usuario.first_name }}</td>
                 <td>{{ usuario.last_name }}</td>
                 
+                <td class="text-center"> <a href="{%url 'admusuario' usuario.id%}" class="btn btn-success">Editar</a> </td>
+
 
                 <td class="text-center">
                     <a href="{% url 'alternarsuperuser' usuario.id %}" class="btn {% if usuario.is_superuser %}btn-success{% else %}btn-danger{% endif %}">

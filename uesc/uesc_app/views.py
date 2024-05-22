@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
+from django.contrib.auth.models import Permission
 
 def home(request):
     tipos = Tipo.objects.all()
@@ -66,19 +67,25 @@ def formLink(request):
     form = LinkForm(request.POST)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse("additens"))
+    else:
+        messages.error(request, 'Valor inválidos.')
+    return HttpResponseRedirect(reverse("additens"))
 
 def formGrupo(request):
     form = GrupoForm(request.POST)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse("additens"))
+    else:
+        messages.error(request, 'Valor inválidos.')
+    return HttpResponseRedirect(reverse("additens"))
     
 def formTipo(request):
     form = TipoForm(request.POST)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse("additens"))
+    else:
+        messages.error(request, 'Valor inválidos.')
+    return HttpResponseRedirect(reverse("additens"))
 
 
 def login(request):
@@ -130,12 +137,10 @@ def remover(request,id):
 
 
 
-def editarUsuario (request):
+def editarUsuario (request,id):
     if request.method == 'POST':
-        usuario = User.objects.get(id=request.user.id)
+        usuario = User.objects.get(id=id)
         novo_usuario = request.POST.copy()
-        novo_usuario['password'] = usuario.password
-        novo_usuario['username'] = usuario.username
         user = cadastroForm(instance=usuario, data=novo_usuario)
         if user.is_valid:
             user.save()
@@ -143,14 +148,17 @@ def editarUsuario (request):
 
 
 def adm(request):
-    usuarios = User.objects.all;
-    contexto = {"usuarios":usuarios}
-    return render(request, "adm.html", contexto)
+    if request.method == "GET" and request.user.is_superuser:
+        usuarios = User.objects.all;
+        contexto = {"usuarios":usuarios}
+        return render(request, "adm.html", contexto)
+    return HttpResponseRedirect(reverse('home'))
 
 
 def editarpermissao(request,id):
     usuario = User.objects.get(id = id)
-    contexto = {"usuario":usuario}
+    form_cadastro = cadastroForm()
+    contexto = {"usuario":usuario,"form_cadastro":form_cadastro}
     return render(request, "editarpermissao.html", contexto)
 
 
@@ -174,3 +182,15 @@ def alternarstaff(request,id):
     usuario.is_staff = not usuario.is_staff
     usuario.save()
     return HttpResponseRedirect(reverse("adm"))
+
+
+def admusuario(request,id):
+    usuario = User.objects.get(id=id)
+    permissoes = Permission.objects.order_by("id")
+    form_cadastro = cadastroForm()
+    contexto = {
+        "usuario":usuario,
+        "permissoes":permissoes,
+        "form_cadastro":form_cadastro}
+    return render(request,"admusuario.html",contexto)
+    

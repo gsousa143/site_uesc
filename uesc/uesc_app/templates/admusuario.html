@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+{% load static %}
+
+{%block main%}
+<div class="card m-8">
+    <div class="card-header]">
+        <h4 class="text-center">
+            Editar Perfil
+        </h4>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{% url 'editarusuario' user.id %}" class="d-flex flex-column align-content-around m-2 gap-2">
+            {% csrf_token %}
+            {{form_cadastro}}
+            <button type="submit" class="btn btn-primary px-5 py-2">Editar Perfil</button>
+        </form>
+    </div>
+</div>
+
+{%endblock main%}
