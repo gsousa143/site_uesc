@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block main %}
-<a href="{% url 'cadastro'%}"> Adicionar Usuario</a>
+<a href="{% url 'criar_usuario' %}"> Adicionar Usuario</a>
 <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -28,11 +28,11 @@
                 <td>{{ usuario.first_name }}</td>
                 <td>{{ usuario.last_name }}</td>
                 
-                <td class="text-center"> <a href="{%url 'admusuario' usuario.id%}" class="btn btn-success">Editar</a> </td>
+                <td class="text-center"> <a href="{%url 'editar_usuario' usuario.id%}" class="btn btn-success">Editar</a> </td>
 
 
                 <td class="text-center">
-                    <a href="{% url 'alternarsuperuser' usuario.id %}" class="btn {% if usuario.is_superuser %}btn-success{% else %}btn-danger{% endif %}">
+                    <a href="{% url 'alternar_superuser' usuario.id %}" class="btn {% if usuario.is_superuser %}btn-success{% else %}btn-danger{% endif %}">
                         {% if usuario.is_superuser %}
                             Sim
                         {% else %}
@@ -42,7 +42,7 @@
                 </td>
                 
                     
-                <td class="text-center"> <a href="{%url 'alternaractive' usuario.id%}" class="btn {% if usuario.is_active %}btn-success{% else %}btn-danger{% endif %}">
+                <td class="text-center"> <a href="{%url 'alternar_active' usuario.id%}" class="btn {% if usuario.is_active %}btn-success{% else %}btn-danger{% endif %}">
                     {% if usuario.is_active %}
                         Sim
                     {%else%}
@@ -51,7 +51,7 @@
                 </a></td>
 
 
-                <td class="text-center"> <a href="{%url 'alternarstaff' usuario.id%}" class="btn {% if usuario.is_staff %}btn-success{% else %}btn-danger{% endif %}">
+                <td class="text-center"> <a href="{%url 'alternar_staff' usuario.id%}" class="btn {% if usuario.is_staff %}btn-success{% else %}btn-danger{% endif %}">
                     {% if usuario.is_staff %}
                         Sim
                     {%else%}

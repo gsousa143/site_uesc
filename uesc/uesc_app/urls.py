@@ -6,25 +6,28 @@ urlpatterns = [
     path("noticias/",views.noticias,name="noticias"),
     path("editais/",views.editais,name="editais"),
 
-    path("additens/",views.additens,name="additens"),
-    path("addtipo/",views.formTipo,name="formTipo"),
-    path("addgrupo/",views.formGrupo,name="formGrupo"),
-    path("addlink/",views.formLink,name="formLink"),
+    path("add_itens/",views.add_itens,name="add_itens"),
+    path("add_tipo/",views.add_tipo,name="add_tipo"),
+    path("add_grupo/",views.add_grupo,name="add_grupo"),
+    path("add_link/",views.add_link,name="add_link"),
 
 
-    path("usuario/",views.usuario,name="usuario"),
+    path("perfil/",views.perfil,name="perfil"),
     path("login/",views.login,name="login"),
     path("logout/",views.logout,name="logout"),
     path("cadastro/",views.cadastro,name="cadastro"),
     path("remover/<id>",views.remover, name="remover"),
-    path("editarusuario/<id>",views.editarUsuario,name="editarusuario"),
-    path("criarusuario/<id>",views.editarUsuario,name="criarusuario"),
 
-    path("adm",views.adm,name="adm"),
-    path("admusuario/<id>",views.admusuario,name="admusuario"),
-    path("alternaractive/<id>",views.alternaractive,name="alternaractive"),
-    path("alternarsuperuser/<id>",views.alternarsuperuser,name="alternarsuperuser"),
-    path("alternarstaff/<id>",views.alternarstaff,name="alternarstaff"),
+    
+
+    path("painel",views.painel,name="painel"),
+    path("editar_usuario/<id>",views.editar_usuario,name="editar_usuario"),
+    path("editar_usuario_painel/<id>",views.editar_usuario_painel,name="editar_usuario_painel"),
+    path("criar_usuario/",views.criar_usuario,name="criar_usuario"),
+    path("criar_usuario_painel/",views.criar_usuario_painel,name="criar_usuario_painel"),
+    path("alternar_active/<id>",views.alternar_active,name="alternar_active"),
+    path("alternar_superuser/<id>",views.alternar_superuser,name="alternar_superuser"),
+    path("alternar_staff/<id>",views.alternar_staff,name="alternar_staff"),
     
 
 ]

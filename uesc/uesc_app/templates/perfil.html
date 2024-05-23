@@ -1,23 +1,23 @@
-{%extends "base.html"%}
-{%block titulo%}
+{% extends "base.html" %}
+{% block titulo %}
 Perfil
-{%endblock titulo%}
+{% endblock titulo %}
 
-{%block main%}
+{% block main %}
 
 {% if user.is_authenticated %}
 
 <div class="card m-8">
     <div class="card-body">
-        <form method="post" action="{% url 'editarusuario' user.id%}" class="d-flex flex-column align-content-around m-2 gap-2">
+        <form method="post" action="{% url 'editar_usuario' user.id %}" class="d-flex flex-column align-content-around m-2 gap-2">
             {% csrf_token %}
             <p><strong>Usuário:</strong></p>
-            {{form_cadastro.username}}
+            {{ form_usuario.username }}
             <p><strong>Nome:</strong></p>
-            {{form_cadastro.first_name}}
-            {{form_cadastro.last_name}}
+            {{ form_usuario.first_name }}
+            {{ form_usuario.last_name }}
             <p><strong>Email:</strong></p>
-            {{form_cadastro.email}}
+            {{ form_usuario.email }}
             <div class="d-flex justify-content-around">
                 <button type="submit" class="btn btn-primary px-5 py-2">Editar Perfil</button>
                 <a class="btn btn-danger px-5 py-2" href="{% url 'logout' %}">Deslogar</a>
@@ -39,16 +39,16 @@ Perfil
     <div class="card-body">
         <form method="post" action="{% url 'login' %}" class="d-flex flex-column align-content-around m-2 gap-2">
             {% csrf_token %}
-            {{form_login.username}}
-            {{form_login.password}}
+            {{ form_usuario.username }}
+            {{ form_usuario.password }}
             <div class="d-flex justify-content-around">
                 <button type="submit" class="btn btn-primary px-5 py-2">Logar</button>
-                <a class="btn btn-secondary px-5 py-2" href="{%url 'cadastro'%}"> Registre-se</a>
+                <a class="btn btn-secondary px-5 py-2" href="{% url 'cadastro' %}">Registre-se</a>
             </div>
         </form>
     </div>
 </div>
-{%endif%}
 
+{% endif %}
 
-{% endblock main%}
+{% endblock main %}

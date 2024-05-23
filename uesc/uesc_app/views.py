@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .models import *
 from .forms import *
 from django.http import HttpResponseRedirect
@@ -55,15 +55,15 @@ def editais(request):
     return render(request, "editais.html", contexto)
 
 
-def additens(request):
+def add_itens(request):
     form_link = LinkForm()
     form_grupo = GrupoForm()
     form_tipo = TipoForm()
 
     contexto = {"form_link": form_link, "form_grupo": form_grupo, "form_tipo": form_tipo}
-    return render(request, "additens.html", contexto)
+    return render(request, "add_itens.html", contexto)
 
-def formLink(request):
+def add_link(request):
     form = LinkForm(request.POST)
     if form.is_valid():
         form.save()
@@ -71,7 +71,7 @@ def formLink(request):
         messages.error(request, 'Valor inválidos.')
     return HttpResponseRedirect(reverse("additens"))
 
-def formGrupo(request):
+def add_grupo(request):
     form = GrupoForm(request.POST)
     if form.is_valid():
         form.save()
@@ -79,7 +79,7 @@ def formGrupo(request):
         messages.error(request, 'Valor inválidos.')
     return HttpResponseRedirect(reverse("additens"))
     
-def formTipo(request):
+def add_tipo(request):
     form = TipoForm(request.POST)
     if form.is_valid():
         form.save()
@@ -95,128 +95,205 @@ def login(request):
             auth_login(request,user = user)
         else:
             messages.error(request, 'Usuário ou senha inválidos.')
-    return HttpResponseRedirect(reverse("usuario"))
+    return HttpResponseRedirect(reverse("perfil"))
 
 
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect(reverse("usuario"))
+    return HttpResponseRedirect(reverse("home"))
 
 
-def usuario(request):
-    form_login = LoginForm()
+def perfil(request):
+    form_usuario = UsuarioForm()
     if request.user.is_authenticated:
-        form_cadastro = cadastroForm(instance=request.user)
-    else:
-        form_cadastro = cadastroForm()
-    contexto = {"form_login": form_login,"form_cadastro":form_cadastro}
+        form_usuario = UsuarioForm(instance=request.user)
+    contexto = {"form_usuario": form_usuario}
 
-    return render(request,"usuario.html",contexto)
+    return render(request,"perfil.html",contexto)
 
 
 def cadastro(request):
     if request.method=="POST":
-        form_cadastro = cadastroForm(request.POST)
-        if form_cadastro.is_valid():
+        form_usuario = UsuarioForm(request.POST)
+        if form_usuario.is_valid():
             if request.POST.get("password")!=request.POST.get("confirmacao"):
-                form_cadastro.add_error("password","As senhas devem ser iguais")
+                form_usuario.add_error("password","As senhas devem ser iguais")
             else:
-                form_cadastro = form_cadastro.save(commit=False)
-                form_cadastro.password = make_password(form_cadastro.password)
-                form_cadastro.save()
+                form_usuario = form_usuario.save(commit=False)
+                form_usuario.password = make_password(form_usuario.password)
+                form_usuario.save()
                 return HttpResponseRedirect(reverse("home"))
 
-    form_cadastro = cadastroForm()
-    contexto = {"form_cadastro":form_cadastro}
+    form_usuario = UsuarioForm()
+    contexto = {"form_usuario":form_usuario}
     return render(request,"cadastro.html",contexto)
 
 
 def remover(request,id):
+    if request.user.is_authenticaded:
         user = User.objects.get(id=id)
         user.delete()
         auth_logout(request)
+    return HttpResponseRedirect(reverse("home"))
+
+
+
+
+
+
+
+def painel(request):
+    if request.method == "GET" and request.user.is_authenticated and request.user.is_superuser:
+        usuarios = User.objects.all;
+        contexto = {"usuarios":usuarios}
+        return render(request, "painel.html", contexto)
+    return HttpResponseRedirect(reverse('home'))
+
+
+
+def alternar_active(request,id):
+    if request.user.is_authenticated and request.user.is_superuser:
+        usuario = User.objects.get(id = id)
+        usuario.is_active = not usuario.is_active
+        usuario.save()
+        return HttpResponseRedirect(reverse("painel"))
+    else:
         return HttpResponseRedirect(reverse("home"))
 
 
 
+def alternar_superuser(request,id):
+    if request.user.is_authenticated and request.user.is_superuser:
+        usuario = User.objects.get(id = id)
+        usuario.is_superuser = not usuario.is_superuser
+        usuario.save()
+        return HttpResponseRedirect(reverse("painel"))
+    else:
+        return HttpResponseRedirect(reverse("home"))
 
-def editarUsuario (request,id):
-    if request.method == 'POST':
+def alternar_staff(request,id):
+    if request.user.is_authenticated and request.user.is_superuser:
+        usuario = User.objects.get(id = id)
+        usuario.is_staff = not usuario.is_staff
+        usuario.save()
+        return HttpResponseRedirect(reverse("painel"))
+    else:
+        return HttpResponseRedirect(reverse("home"))
+
+
+def editar_usuario(request, id):
+    if request.user.is_authenticated and request.user.is_superuser:
+        permissoes = Permission.objects.order_by('id')
+        permissoes_agrupadas = {}
+        for permissao in permissoes:
+            objeto = permissao.codename.split("_")
+            if objeto[1] not in permissoes_agrupadas:
+                permissoes_agrupadas[objeto[1]] = {objeto[0]: permissao.id}
+            else:
+                permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+
+        usuario = User.objects.get(id=id)
+        form_usuario = UsuarioForm(instance=usuario)
+        permissoes_usuario = usuario.user_permissions.values_list('id', flat=True)
+
+        contexto = {
+            "usuario": usuario,
+            "permissoes": permissoes_agrupadas,
+            "form_usuario": form_usuario,
+            "grupos": Group.objects.all(),
+            "permissoes_usuario": permissoes_usuario,
+        }
+
+        return render(request, "editar_usuario.html", contexto)
+    else:
+        return HttpResponseRedirect(reverse("home"))
+    
+    
+
+
+def editar_usuario_painel(request, id):
+    if request.method == 'POST' and request.user.is_authenticated and request.user.is_superuser:
         usuario = User.objects.get(id=id)
         novo_usuario = request.POST.copy()
-        novo_usuario["password"] = usuario.password
-        user = cadastroForm(instance=usuario, data=novo_usuario)
-        
-        if user.is_valid:
+        novo_usuario["password"] = usuario.password  # Keep the existing password
+        user_form = UsuarioForm(instance=usuario, data=novo_usuario)
 
-            permlist = []
-            for permissao in request.POST.getlist("permissao"):
-                permlist.append(Permission.objects.get(id=permissao))
-            user = user.save(commit=False)
-            user.password = make_password(user.password)
+        if user_form.is_valid():
+            user = user_form.save(commit=False)
+            user.password = usuario.password  # Ensure password is not hashed again
             user.save()
+
+            # Prepare the permission list
+            permlist = []
+            permissoes = request.POST.getlist("permissoes")
+            for permissao in permissoes:
+                permlist.append(Permission.objects.get(id=permissao))
+
             user.user_permissions.set(permlist)
             user.save()
-    return HttpResponseRedirect(reverse('home'))
 
-
-def adm(request):
-    if request.method == "GET" and request.user.is_superuser:
-        usuarios = User.objects.all;
-        contexto = {"usuarios":usuarios}
-        return render(request, "adm.html", contexto)
-    return HttpResponseRedirect(reverse('home'))
-
-'''
-def editarpermissao(request,id):
-    usuario = User.objects.get(id = id)
-    form_cadastro = cadastroForm(instance=usuario)
-    contexto = {"usuario":usuario,"form_cadastro":form_cadastro}
-    return render(request, "editarpermissao.html", contexto)
-'''
-
-def alternaractive(request,id):
-    usuario = User.objects.get(id = id)
-    usuario.is_active = not usuario.is_active
-    usuario.save()
-    return HttpResponseRedirect(reverse("adm"))
-
-
-
-def alternarsuperuser(request,id):
-    usuario = User.objects.get(id = id)
-    usuario.is_superuser = not usuario.is_superuser
-    usuario.save()
-    return HttpResponseRedirect(reverse("adm"))
-
-
-def alternarstaff(request,id):
-    usuario = User.objects.get(id = id)
-    usuario.is_staff = not usuario.is_staff
-    usuario.save()
-    return HttpResponseRedirect(reverse("adm"))
-
-
-def admusuario(request,id):
-    
-    permissoes = Permission.objects.order_by('id')
-    permissoes_agrupadas = {}
-    for permissao in permissoes:
-        objeto = permissao.codename.split("_")
-        if objeto[1] not in permissoes_agrupadas:
-            permissoes_agrupadas[objeto[1]] = {objeto[0] : permissao.id}
+            return HttpResponseRedirect(reverse('painel'))
         else:
-            permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+            permissoes = Permission.objects.order_by('id')
+            permissoes_agrupadas = {}
+            for permissao in permissoes:
+                objeto = permissao.codename.split("_")
+                if objeto[1] not in permissoes_agrupadas:
+                    permissoes_agrupadas[objeto[1]] = {objeto[0]: permissao.id}
+                else:
+                    permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+
+            permissoes_usuario = usuario.user_permissions.values_list('id', flat=True)
+
+            contexto = {
+                "usuario": usuario,
+                "permissoes": permissoes_agrupadas,
+                "form_usuario": user_form,
+                "grupos": Group.objects.all(),
+                "permissoes_usuario": permissoes_usuario,
+            }
+            return render(request, "editar_usuario.html", contexto)
+
+    return HttpResponseRedirect(reverse('home'))
+
+
+
+
+
+def criar_usuario(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        form = UsuarioForm
+        permissoes = Permission.objects.order_by('id')
+        permissoes_agrupadas = {}
+        for permissao in permissoes:
+            objeto = permissao.codename.split("_")
+            if objeto[1] not in permissoes_agrupadas:
+                permissoes_agrupadas[objeto[1]] = {objeto[0]: permissao.id}
+            else:
+                permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+        contexto = {
+            "form_usuario": form,
+            "permissoes": permissoes_agrupadas}
+
+        return render(request,"criar_usuario.html", contexto)
+    return HttpResponseRedirect(reverse("home"))
     
-    
-    usuario = User.objects.get(id=id)
-    form_cadastro = cadastroForm(instance=usuario)
-    contexto = {
-    "usuario":usuario,
-    "permissoes":permissoes_agrupadas,
-    "form_cadastro":form_cadastro,
-    "grupos": Group.objects.all(),
-    }
-    
-    return render(request,"admusuario.html",contexto)
-    
+def criar_usuario_painel(request):
+    if request.method=="POST" and request.user.is_authenticated and request.user.is_superuser:
+        form_usuario = UsuarioForm(request.POST)
+        if form_usuario.is_valid():
+            
+            permlist = []
+            permissoes = request.POST.getlist("permissoes")
+            for permissao in permissoes:
+                permlist.append(Permission.objects.get(id=permissao))
+            
+            form_usuario = form_usuario.save(commit=False)
+            form_usuario.password = make_password(form_usuario.password)
+            form_usuario.save()
+            form_usuario.user_permissions.set(permlist)
+            form_usuario.save()
+            return HttpResponseRedirect(reverse("painel"))
+        
+    return HttpResponseRedirect(reverse("home"))
+        

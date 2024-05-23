@@ -14,23 +14,23 @@ Cadastro
             {% csrf_token %}
             <div class="row">
                 <div class="col-6">
-                    {{form_cadastro.first_name}}
+                    {{form_usuario.first_name}}
                 </div>
                 <div class="col-6">
-                    {{form_cadastro.last_name}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    {{form_cadastro.email}}
-                </div>
-                <div class="col-6">
-                    {{form_cadastro.username}}
+                    {{form_usuario.last_name}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
-                    {{form_cadastro.password}}
+                    {{form_usuario.email}}
+                </div>
+                <div class="col-6">
+                    {{form_usuario.username}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{form_usuario.password}}
                 </div>
                 <div class="col-6">
                     <input name="confirmacao" type="password" placeholder="Confirmação de Senha" class="form-control my-2 p-2">
