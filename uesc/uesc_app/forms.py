@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.forms.widgets import *
 from .models import *
 
@@ -33,6 +33,11 @@ class GrupoForm (forms.ModelForm):
         self.fields['tipo'].widget.attrs.update(
             {'class': 'form-control'})
 
+### ver
+class GroupUsuForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name']
 
 class TipoForm (forms.ModelForm):
     class Meta:

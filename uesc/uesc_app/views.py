@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.http import HttpResponseRedirect
@@ -138,13 +138,9 @@ def remover(request,id):
 
 
 
-
-
-
-
 def painel(request):
     if request.method == "GET" and request.user.is_authenticated and request.user.is_superuser:
-        usuarios = User.objects.all;
+        usuarios = User.objects.all
         contexto = {"usuarios":usuarios}
         return render(request, "painel.html", contexto)
     return HttpResponseRedirect(reverse('home'))
@@ -296,4 +292,18 @@ def criar_usuario_painel(request):
             return HttpResponseRedirect(reverse("painel"))
         
     return HttpResponseRedirect(reverse("home"))
-        
+
+def group(request):
+    if request.method == 'POST':
+        form = GroupUsuForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'index.html')
+    else:
+        form = GroupUsuForm()
+    return render(request, 'grupo.html', {'form': form})
+
+def lista_groups(request):
+    groups = Group.objects.all()
+    return render(request, {'groups': groups})
+

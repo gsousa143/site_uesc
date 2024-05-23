@@ -28,6 +28,5 @@ urlpatterns = [
     path("alternar_active/<id>",views.alternar_active,name="alternar_active"),
     path("alternar_superuser/<id>",views.alternar_superuser,name="alternar_superuser"),
     path("alternar_staff/<id>",views.alternar_staff,name="alternar_staff"),
-    
-
+    path('grupo/', views.group, name='grupos'),
 ]

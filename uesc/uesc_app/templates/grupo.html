@@ -1,0 +1,29 @@
+{%extends "base.html"%}
+{% load static %}
+
+{%block main%}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Adicionar Grupo</h4>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class="btn btn-primary" type="submit">Salvar Grupo</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <h2>Lista de Grupos</h2>
+    <ul>
+        {% for group in groups %}
+        <li>{{ group.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{%endblock main%}
