@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block main %}
-<a href="{% url 'criar_usuario' %}"> Adicionar Usuario</a>
+<a href="{% url 'criar_usuario' %}" class="btn mu-5 mb-2" style="background-color: #02335E; color: white;"> Adicionar Usuario</a>
 <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -51,19 +51,25 @@
                 </a></td>
 
 
-                <td class="text-center"> <a href="{%url 'alternar_staff' usuario.id%}" class="btn {% if usuario.is_staff %}btn-success{% else %}btn-danger{% endif %}">
-                    {% if usuario.is_staff %}
-                        Sim
-                    {%else%}
-                        Não
-                    {%endif%}
-                </a></td>
+                <td class="text-center"> 
+                    <a href="{%url 'alternar_staff' usuario.id%}" class="btn {% if usuario.is_staff %}btn-success{% else %}btn-danger{% endif %}">
+                        {% if usuario.is_staff %}
+                            Sim
+                        {%else%}
+                            Não
+                        {%endif%}
+                    </a>
+                </td>
 
 
 
 
 
-                <td class="text-center"> <a href="{%url 'remover' usuario.id%}" class="btn btn-danger">Excluir Conta</a> </td>
+                <td class="text-center">
+                    <a href="{%url 'remover_usuario' usuario.id%}" class="btn btn-danger">
+                        Excluir Conta
+                    </a>
+                </td>
                 
                 
             </tr>
@@ -72,7 +78,7 @@
     </table>
 </div>
 
-<a href="{% url 'criar_grupo' %}">Adicionar Grupo</a>
+<a href="{% url 'criar_grupo' %}" class="btn mu-5 mb-2" style="background-color: #02335E; color: white;">Adicionar Grupo</a>
 <div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -80,6 +86,7 @@
                 <th>ID</th>
                 <th>Nome do Grupo</th>
                 <th>Editar</th>
+                <th>Excluir</th>
             </tr>
         </thead>
         <tbody>
@@ -95,6 +102,11 @@
         <td>
             <a class="btn btn-success" href="{%url 'editar_grupo' grupo.id %}">
                  Editar
+            </a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="{%url 'remover_grupo' grupo.id %}">
+                 Remover
             </a>
         </td>
     </tr>

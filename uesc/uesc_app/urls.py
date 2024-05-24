@@ -16,7 +16,8 @@ urlpatterns = [
     path("login/",views.login,name="login"),
     path("logout/",views.logout,name="logout"),
     path("cadastro/",views.cadastro,name="cadastro"),
-    path("remover/<id>",views.remover, name="remover"),
+    path("editar_usuario_perfil/",views.editar_usuario_perfil,name="editar_usuario_perfil"),
+    path("remover_usuario/<id>",views.remover_usuario, name="remover_usuario"),
 
     
 
@@ -36,5 +37,7 @@ urlpatterns = [
     path('criar_grupo_painel/', views.criar_grupo_painel, name='criar_grupo_painel'),
     path('editar_grupo/<id>',views.editar_grupo,name="editar_grupo"),
     path('editar_grupo_painel/<id>',views.editar_grupo_painel,name="editar_grupo_painel"),
+
+    path('remover_grupo/<id>', views.remover_grupo, name="remover_grupo")
     
 ]

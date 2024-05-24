@@ -129,12 +129,27 @@ def cadastro(request):
     return render(request,"cadastro.html",contexto)
 
 
-def remover(request,id):
-    if request.user.is_authenticaded:
+def editar_usuario_perfil(request):
+    if request.user.is_authenticated:
+        usuario = request.user
+        novo_usuario = request.POST.copy()
+        novo_usuario["password"] = usuario.password
+        form_usuario = UsuarioForm(instance=usuario,data=novo_usuario)
+        if form_usuario.is_valid():
+            form_usuario.save()
+            return HttpResponseRedirect(reverse("painel"))
+        
+    return HttpResponseRedirect(reverse("home"))
+        
+
+def remover_usuario(request,id):
+    if request.user.is_authenticated and request.user.is_superuser:
         user = User.objects.get(id=id)
         user.delete()
-        auth_logout(request)
+        return HttpResponseRedirect(reverse("painel"))
+    
     return HttpResponseRedirect(reverse("home"))
+    
 
 
 
@@ -314,7 +329,11 @@ def criar_grupo(request):
                 "usuarios":usuarios}
     return render(request,"criar_grupo.html",contexto)
     
-
+def remover_grupo(request,id):
+    if request.user.is_authenticated and request.user.is_superuser:
+        grupo = Group.objects.get(id=id)
+        grupo.delete()
+    return HttpResponseRedirect(reverse("painel"))
 
 
 def criar_grupo_painel(request):
