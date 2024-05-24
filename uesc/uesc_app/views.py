@@ -141,7 +141,8 @@ def remover(request,id):
 def painel(request):
     if request.method == "GET" and request.user.is_authenticated and request.user.is_superuser:
         usuarios = User.objects.all
-        contexto = {"usuarios":usuarios}
+        grupos = Group.objects.all
+        contexto = {"usuarios":usuarios,"grupos":grupos}
         return render(request, "painel.html", contexto)
     return HttpResponseRedirect(reverse('home'))
 
@@ -293,17 +294,116 @@ def criar_usuario_painel(request):
         
     return HttpResponseRedirect(reverse("home"))
 
-def group(request):
-    if request.method == 'POST':
-        form = GroupUsuForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'index.html')
-    else:
-        form = GroupUsuForm()
-    return render(request, 'grupo.html', {'form': form})
 
-def lista_groups(request):
-    groups = Group.objects.all()
-    return render(request, {'groups': groups})
+
+
+def criar_grupo(request):
+    form = GroupUsuForm()
+    usuarios = User.objects.order_by("id")
+    permissoes = Permission.objects.order_by('id')
+    permissoes_agrupadas = {}
+    for permissao in permissoes:
+        objeto = permissao.codename.split("_")
+        if objeto[1] not in permissoes_agrupadas:
+            permissoes_agrupadas[objeto[1]] = {objeto[0]: permissao.id}
+        else:
+            permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+    
+    contexto = {"form":form,
+                "permissoes":permissoes_agrupadas,
+                "usuarios":usuarios}
+    return render(request,"criar_grupo.html",contexto)
+    
+
+
+
+def criar_grupo_painel(request):
+    form = GroupUsuForm(request.POST)
+    if form.is_valid():
+        permlist = []
+        permissoes = request.POST.getlist("permissoes")
+        usuarios = request.POST.getlist("usuarios")
+        for permissao in permissoes:
+            permlist.append(Permission.objects.get(id=permissao))
+
+        form = form.save(commit=False)
+        form.save()
+        form.permissions.set(permlist)
+        form.user_set.set(usuarios)
+        form.save()
+        return HttpResponseRedirect(reverse("painel"))
+    return HttpResponseRedirect(reverse("home"))
+        
+
+
+
+def editar_grupo(request, id):
+    if request.user.is_authenticated and request.user.is_superuser:
+
+        permissoes = Permission.objects.order_by('id')
+        permissoes_agrupadas = {}
+        for permissao in permissoes:
+            objeto = permissao.codename.split("_")
+            if objeto[1] not in permissoes_agrupadas:
+                permissoes_agrupadas[objeto[1]] = {objeto[0]: permissao.id}
+            else:
+                permissoes_agrupadas[objeto[1]][objeto[0]] = permissao.id
+
+        grupo = Group.objects.get(id=id)
+
+        form = GroupUsuForm(instance=grupo)
+
+        permissoes_grupo = grupo.permissions.values_list('id', flat=True)
+
+        usuarios = User.objects.all()
+
+        usuarios_grupo = grupo.user_set.all()
+
+        contexto = {
+            "grupo": grupo,
+            "permissoes": permissoes_agrupadas,
+            "form": form,
+            "permissoes_grupo": permissoes_grupo,
+            "usuarios": usuarios,
+            "usuarios_grupo": usuarios_grupo
+        }
+
+        return render(request, "editar_grupo.html", contexto)
+    else:
+        return HttpResponseRedirect(reverse("home"))
+    
+
+def editar_grupo_painel(request, id):
+    if request.method == 'POST' and request.user.is_authenticated and request.user.is_superuser:
+        grupo = Group.objects.get(id=id)
+        novo_grupo = request.POST.copy()
+        form = GroupUsuForm(instance=grupo, data=novo_grupo)
+        usuarios = request.POST.getlist("usuarios")
+        if form.is_valid():
+            grupo = form.save(commit=False)
+            grupo.save()
+
+            permlist = []
+            permissoes = request.POST.getlist("permissoes")
+            for permissao in permissoes:
+                permlist.append(Permission.objects.get(id=permissao))
+            
+            grupo.user_set.set(usuarios)
+            grupo.permissions.set(permlist)
+            grupo.save()
+
+            return HttpResponseRedirect(reverse('painel'))
+        
+
+    return HttpResponseRedirect(reverse('home'))
+
+
+
+
+
+
+
+    
+
+
 

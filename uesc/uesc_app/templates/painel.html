@@ -71,4 +71,40 @@
         </tbody>
     </table>
 </div>
+
+<a href="{% url 'criar_grupo' %}">Adicionar Grupo</a>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome do Grupo</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+{%for grupo in grupos %}
+    <tr>
+        <td>
+            {{grupo.id}}
+        </td>
+        <td>
+            {{grupo.name}}
+        </td>
+        <td>
+            <a class="btn btn-success" href="{%url 'editar_grupo' grupo.id %}">
+                 Editar
+            </a>
+        </td>
+    </tr>
+
+
+{% empty %}
+
+
+{% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock main %}
